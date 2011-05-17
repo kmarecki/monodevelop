@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using Mono.Unix;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class EditIconDialog: IDisposable
 	{

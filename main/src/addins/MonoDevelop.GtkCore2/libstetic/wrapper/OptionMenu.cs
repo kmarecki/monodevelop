@@ -5,7 +5,7 @@ using System.Xml;
 // Don't warn that OptionMenu is deprecated. We know that.
 #pragma warning disable 612
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class OptionMenu : Container {
 
@@ -49,7 +49,7 @@ namespace Stetic.Wrapper {
 
 		protected override ObjectWrapper ReadChild (ObjectReader reader, XmlElement child_elem)
 		{
-			Widget wrapper = Stetic.Wrapper.Widget.Lookup (optionmenu.Menu);
+			Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (optionmenu.Menu);
 			reader.ReadExistingObject (wrapper, child_elem["widget"]);
 			return wrapper;
 		}

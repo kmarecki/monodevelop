@@ -2,10 +2,10 @@
 using System;
 using System.Xml;
 using System.Collections;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 using Mono.Unix;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	class ActionToolbar: Gtk.Toolbar, IMenuItemContainer
 	{
@@ -43,7 +43,7 @@ namespace Stetic.Editor
 			
 			HideSpacerItem ();
 			toolItems.Clear ();
-			Widget wrapper = Stetic.Wrapper.Widget.Lookup (this);
+			Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (this);
 			
 			foreach (Gtk.Widget w in Children) {
 				Remove (w);
@@ -141,7 +141,7 @@ namespace Stetic.Editor
 			}
 		}
 
-		public Stetic.Editor.ActionMenu OpenSubmenu {
+		public MonoDevelop.GtkCore2.Designer.Editor.ActionMenu OpenSubmenu {
 			get { return null; }
 			set { }
 		}
@@ -157,7 +157,7 @@ namespace Stetic.Editor
 		public void Unselect ()
 		{
 			// Unselects any selected item
-			Widget wrapper = Stetic.Wrapper.Widget.Lookup (this);
+			Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (this);
 			IDesignArea area = wrapper.GetDesignArea ();
 			if (area != null) {
 				foreach (Gtk.Widget w in Children) {
@@ -175,7 +175,7 @@ namespace Stetic.Editor
 		
 		void OnChildRemoved (object ob, ActionTreeNodeArgs args)
 		{
-			Widget wrapper = Stetic.Wrapper.Widget.Lookup (this);
+			Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (this);
 			IDesignArea area = wrapper.GetDesignArea ();
 			IObjectSelection asel = area.GetSelection ();
 			ActionToolItem curSel = asel != null ? asel.DataObject as ActionToolItem : null;
@@ -200,7 +200,7 @@ namespace Stetic.Editor
 		
 		void Refresh ()
 		{
-			Widget wrapper = Stetic.Wrapper.Widget.Lookup (this);
+			Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (this);
 			IDesignArea area = wrapper.GetDesignArea ();
 			if (area == null)
 				return;
@@ -235,7 +235,7 @@ namespace Stetic.Editor
 		
 		void InsertAction (int pos)
 		{
-			Widget wrapper = Stetic.Wrapper.Widget.Lookup (this);
+			Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (this);
 			using (wrapper.UndoManager.AtomicChange) {
 				Wrapper.Action ac = (Wrapper.Action) ObjectWrapper.Create (wrapper.Project, 
 				                                                           new Gtk.Action ("", "", null, null),
@@ -257,7 +257,7 @@ namespace Stetic.Editor
 		
 		void OnEditingDone (object ob, EventArgs args)
 		{
-			Widget wrapper = Stetic.Wrapper.Widget.Lookup (this);
+			Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (this);
 			if (wrapper == null)
 				return;
 			
@@ -360,7 +360,7 @@ namespace Stetic.Editor
 				newNode.Type = Gtk.UIManagerItemType.Toolitem;
 			}
 
-			Widget wrapper = Stetic.Wrapper.Widget.Lookup (this);
+			Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (this);
 			using (wrapper.UndoManager.AtomicChange) {
 				if (dropIndex < actionTree.Children.Count) {
 					// Do nothing if trying to drop the node over the same node

@@ -2,7 +2,7 @@
 using System;
 using Mono.Unix;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public delegate void ShowUrlDelegate (string url);
 

@@ -2,9 +2,9 @@
 using System;
 using System.Xml;
 using System.Collections;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 
-namespace Stetic.Undo
+namespace MonoDevelop.GtkCore2.Designer.Undo
 {
 	class ActionDiffAdaptor: IDiffAdaptor
 	{

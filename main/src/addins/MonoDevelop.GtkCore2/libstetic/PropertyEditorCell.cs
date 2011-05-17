@@ -4,7 +4,7 @@ using System.Collections;
 using Gtk;
 using Gdk;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public class PropertyEditorCell
 	{
@@ -21,24 +21,24 @@ namespace Stetic
 		{
 			editors = new Hashtable ();
 
-			editors[typeof (bool)] = typeof (Stetic.Editor.Boolean);
-			editors[typeof (byte)] = typeof (Stetic.Editor.IntRange);
-			editors[typeof (sbyte)] = typeof (Stetic.Editor.IntRange);
-			editors[typeof (short)] = typeof (Stetic.Editor.IntRange);
-			editors[typeof (ushort)] = typeof (Stetic.Editor.IntRange);
-			editors[typeof (int)] = typeof (Stetic.Editor.IntRange);
-			editors[typeof (uint)] = typeof (Stetic.Editor.IntRange);
-			editors[typeof (long)] = typeof (Stetic.Editor.IntRange);
-			editors[typeof (ulong)] = typeof (Stetic.Editor.IntRange);
-			editors[typeof (float)] = typeof (Stetic.Editor.FloatRange);
-			editors[typeof (double)] = typeof (Stetic.Editor.FloatRange);
-			editors[typeof (char)] = typeof (Stetic.Editor.Char);
-			editors[typeof (string)] = typeof (Stetic.Editor.TextEditor);
-			editors[typeof (DateTime)] = typeof (Stetic.Editor.DateTimeEditorCell);
-			editors[typeof (TimeSpan)] = typeof (Stetic.Editor.TimeSpanEditorCell);
-			editors[typeof (string[])] = typeof (Stetic.Editor.StringArray);
-			editors[typeof (Gdk.Color)] = typeof (Stetic.Editor.Color);
-			editors[typeof (Stetic.ImageInfo)] = typeof (Stetic.Editor.ImageSelector);
+			editors[typeof (bool)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.Boolean);
+			editors[typeof (byte)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.IntRange);
+			editors[typeof (sbyte)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.IntRange);
+			editors[typeof (short)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.IntRange);
+			editors[typeof (ushort)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.IntRange);
+			editors[typeof (int)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.IntRange);
+			editors[typeof (uint)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.IntRange);
+			editors[typeof (long)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.IntRange);
+			editors[typeof (ulong)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.IntRange);
+			editors[typeof (float)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.FloatRange);
+			editors[typeof (double)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.FloatRange);
+			editors[typeof (char)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.Char);
+			editors[typeof (string)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.TextEditor);
+			editors[typeof (DateTime)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.DateTimeEditorCell);
+			editors[typeof (TimeSpan)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.TimeSpanEditorCell);
+			editors[typeof (string[])] = typeof (MonoDevelop.GtkCore2.Designer.Editor.StringArray);
+			editors[typeof (Gdk.Color)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.Color);
+			editors[typeof (MonoDevelop.GtkCore2.Designer.ImageInfo)] = typeof (MonoDevelop.GtkCore2.Designer.Editor.ImageSelector);
 		}
 		
 		public object Instance {
@@ -148,9 +148,9 @@ namespace Stetic
 		{
 			if (propertyType.IsEnum) {
 				if (propertyType.IsDefined (typeof (FlagsAttribute), true))
-					return typeof (Stetic.Editor.Flags);
+					return typeof (MonoDevelop.GtkCore2.Designer.Editor.Flags);
 				else
-					return typeof (Stetic.Editor.Enumeration);
+					return typeof (MonoDevelop.GtkCore2.Designer.Editor.Enumeration);
 			} else {
 				return editors [propertyType] as Type;
 			}
@@ -261,7 +261,7 @@ namespace Stetic
 			if (!syncing) {
 				syncing = true;
 				property.SetValue (obj, currentEditor.Value);
-				Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (obj) as Stetic.Wrapper.Widget;
+				MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (obj) as MonoDevelop.GtkCore2.Designer.Wrapper.Widget;
 				if (wrapper != null)
 					wrapper.NotifyChanged ();
 				syncing = false;

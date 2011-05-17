@@ -1,5 +1,5 @@
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public delegate void SignalChangedEventHandler (object sender, SignalChangedEventArgs args);
 	

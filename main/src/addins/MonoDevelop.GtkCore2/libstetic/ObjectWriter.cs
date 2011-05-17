@@ -1,9 +1,9 @@
 
 using System;
 using System.Xml;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public class ObjectWriter
 	{

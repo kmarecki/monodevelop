@@ -3,7 +3,7 @@ using System.Xml;
 using System.CodeDom;
 using Mono.Unix;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	// This widget is shown in place of widgets with unknown classes. 
 	

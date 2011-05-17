@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Stetic.Editor {
+namespace MonoDevelop.GtkCore2.Designer.Editor {
 
 	public class Enumeration: PropertyEditorCell
 	{

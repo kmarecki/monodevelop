@@ -3,7 +3,7 @@ using System;
 using System.CodeDom;
 using System.Collections;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class Window : Container {
 

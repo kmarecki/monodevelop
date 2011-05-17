@@ -1,10 +1,10 @@
 
 using System;
 using System.Collections;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 using Mono.Unix;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class ActionGroupEditor: Gtk.EventBox, IMenuItemContainer
 	{

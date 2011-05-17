@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 
 	public static class DND {
 		static Gtk.TargetEntry[] targets;
@@ -252,12 +252,12 @@ namespace Stetic {
 		}
 
 		class Fault {
-			public Stetic.Wrapper.Widget Owner;
+			public MonoDevelop.GtkCore2.Designer.Wrapper.Widget Owner;
 			public object Id;
 			public Gtk.Orientation Orientation;
 			public Gdk.Window Window;
 
-			public Fault (Stetic.Wrapper.Widget owner, object id,
+			public Fault (MonoDevelop.GtkCore2.Designer.Wrapper.Widget owner, object id,
 				      Gtk.Orientation orientation, Gdk.Window window)
 			{
 				Owner = owner;
@@ -270,14 +270,14 @@ namespace Stetic {
 		static Hashtable faultGroups = new Hashtable ();
 		const int FaultOverlap = 3;
 
-		public static void AddFault (Stetic.Wrapper.Widget owner, object faultId,
+		public static void AddFault (MonoDevelop.GtkCore2.Designer.Wrapper.Widget owner, object faultId,
 					     Gtk.Orientation orientation, Gdk.Rectangle fault)
 		{
 			AddFault (owner, faultId, orientation,
 				  fault.X, fault.Y, fault.Width, fault.Height);
 		}
 
-		public static void AddFault (Stetic.Wrapper.Widget owner, object faultId,
+		public static void AddFault (MonoDevelop.GtkCore2.Designer.Wrapper.Widget owner, object faultId,
 					     Gtk.Orientation orientation,
 					     int x, int y, int width, int height)
 		{
@@ -301,7 +301,7 @@ namespace Stetic {
 			widgetFaults[win] = new Fault (owner, faultId, orientation, win);
 		}
 
-		public static void AddFault (Stetic.Wrapper.Widget owner, object faultId,
+		public static void AddFault (MonoDevelop.GtkCore2.Designer.Wrapper.Widget owner, object faultId,
 					     Gtk.Orientation orientation,
 					     Gtk.Widget before, Gtk.Widget after)
 		{
@@ -311,7 +311,7 @@ namespace Stetic {
 				AddVFault (owner, faultId, before, after);
 		}
 
-		public static void AddHFault (Stetic.Wrapper.Widget owner, object faultId,
+		public static void AddHFault (MonoDevelop.GtkCore2.Designer.Wrapper.Widget owner, object faultId,
 					      Gtk.Widget above, Gtk.Widget below)
 		{
 			Gtk.Widget widget = owner.Wrapped;
@@ -354,7 +354,7 @@ namespace Stetic {
 				  x1, y1, x2 - x1, y2 - y1);
 		}
 
-		public static void AddVFault (Stetic.Wrapper.Widget owner, object faultId,
+		public static void AddVFault (MonoDevelop.GtkCore2.Designer.Wrapper.Widget owner, object faultId,
 					      Gtk.Widget left, Gtk.Widget right)
 		{
 			Gtk.Widget widget = owner.Wrapped;
@@ -400,7 +400,7 @@ namespace Stetic {
 				  x1, y1, x2 - x1, y2 - y1);
 		}
 
-		public static void AddFault (Stetic.Wrapper.Widget owner, object faultId,
+		public static void AddFault (MonoDevelop.GtkCore2.Designer.Wrapper.Widget owner, object faultId,
 					     Gtk.SideType side, Gtk.Widget widget)
 		{
 			Gdk.Rectangle fault;
@@ -446,7 +446,7 @@ namespace Stetic {
 			ClearFaults ((Gtk.Widget)widget);
 		}
 
-		public static void ClearFaults (Stetic.Wrapper.Widget owner)
+		public static void ClearFaults (MonoDevelop.GtkCore2.Designer.Wrapper.Widget owner)
 		{
 			ClearFaults (owner.Wrapped);
 		}
@@ -555,7 +555,7 @@ namespace Stetic {
 			dragFault = null;
 		}
 
-		static void FaultDrop (Stetic.Wrapper.Widget wrapper, int x, int y, Gtk.Widget targetWidget)
+		static void FaultDrop (MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper, int x, int y, Gtk.Widget targetWidget)
 		{
 			Fault fault = FindFault (x, y, targetWidget);
 			if (fault != null) {
@@ -567,7 +567,7 @@ namespace Stetic {
 		static void FaultDragDrop (object obj, Gtk.DragDropArgs args)
 		{
 			Gtk.Widget w = DND.Drop (args.Context, (Gtk.Widget)obj, args.Time);
-			Stetic.Wrapper.Widget dropped = Stetic.Wrapper.Widget.Lookup (w);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget dropped = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (w);
 			if (dropped != null) {
 				Gtk.Widget targetWidget = (Gtk.Widget) obj;
 				int px = args.X + targetWidget.Allocation.X;
@@ -580,9 +580,9 @@ namespace Stetic {
 
 		static void FaultDragDataReceived (object obj, Gtk.DragDataReceivedArgs args)
 		{
-			Stetic.Wrapper.Widget dropped = null;
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget dropped = null;
 
-			Stetic.Wrapper.Widget faultOwner = Stetic.Wrapper.Widget.Lookup ((Gtk.Widget)obj);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget faultOwner = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup ((Gtk.Widget)obj);
 			if (faultOwner != null)
 				dropped = WidgetUtils.Paste (faultOwner.Project, args.SelectionData);
 			Gtk.Drag.Finish (args.Context, dropped != null,

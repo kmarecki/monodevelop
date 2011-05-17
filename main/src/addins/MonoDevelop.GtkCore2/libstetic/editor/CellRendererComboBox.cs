@@ -30,7 +30,7 @@ using System;
 using Gtk;
 using Gdk;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class CellRendererComboBox: CellRendererText
 	{

@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Xml;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 
 	public static class GladeUtils {
 
@@ -51,7 +51,7 @@ namespace Stetic {
 		
 		public static XmlDocument Export (Gtk.Widget widget)
 		{
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (widget);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (widget);
 			if (wrapper == null)
 				return null;
 
@@ -68,7 +68,7 @@ namespace Stetic {
 			// like).
 
 			XmlElement elem;
-			Stetic.Wrapper.Container parent = wrapper.ParentWrapper;
+			MonoDevelop.GtkCore2.Designer.Wrapper.Container parent = wrapper.ParentWrapper;
 			ObjectWriter writer = new ObjectWriter (doc, FileFormat.Glade);
 
 			if (parent == null) {
@@ -104,7 +104,7 @@ namespace Stetic {
 			return doc;
 		}
 
-//		public static Stetic.Wrapper.Widget Import (IProject project, XmlDocument doc)
+//		public static MonoDevelop.GtkCore2.Designer.Wrapper.Widget Import (IProject project, XmlDocument doc)
 //		{
 //			try {
 //				doc = XslImportTransform (doc);
@@ -118,16 +118,16 @@ namespace Stetic {
 //			if (elem.GetAttribute ("class") != "GtkWindow" ||
 //			    elem.GetAttribute ("id") != "glade-dummy-container") {
 //				// Creating a new toplevel
-//				Stetic.Wrapper.Widget toplevel = (Stetic.Wrapper.Widget)
-//					Stetic.ObjectWrapper.ReadObject (reader, elem);
+//				MonoDevelop.GtkCore2.Designer.Wrapper.Widget toplevel = (MonoDevelop.GtkCore2.Designer.Wrapper.Widget)
+//					MonoDevelop.GtkCore2.Designer.ObjectWrapper.ReadObject (reader, elem);
 //				if (toplevel != null) {
 //					project.AddWindow ((Gtk.Window)toplevel.Wrapped);
 //				}
 //				return toplevel;
 //			}
 //
-//			return (Stetic.Wrapper.Widget)
-//				Stetic.ObjectWrapper.ReadObject (reader, (XmlElement)elem.SelectSingleNode ("child/widget"));
+//			return (MonoDevelop.GtkCore2.Designer.Wrapper.Widget)
+//				MonoDevelop.GtkCore2.Designer.ObjectWrapper.ReadObject (reader, (XmlElement)elem.SelectSingleNode ("child/widget"));
 //		}
 		
 		public static void Copy (Gtk.Widget widget, Gtk.SelectionData seldata, bool copyAsText)
@@ -142,7 +142,7 @@ namespace Stetic {
 				seldata.Set (ApplicationXGladeAtom, 8, System.Text.Encoding.UTF8.GetBytes (doc.OuterXml));
 		}
 
-//		public static Stetic.Wrapper.Widget Paste (IProject project, Gtk.SelectionData seldata)
+//		public static MonoDevelop.GtkCore2.Designer.Wrapper.Widget Paste (IProject project, Gtk.SelectionData seldata)
 //		{
 //			if (seldata.Type != ApplicationXGladeAtom)
 //				return null;
@@ -428,7 +428,7 @@ namespace Stetic {
 
 		static void ReadSignals (TypedClassDescriptor klass, ObjectWrapper wrapper, XmlElement elem)
 		{
-			Stetic.Wrapper.Widget ob = wrapper as Stetic.Wrapper.Widget;
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget ob = wrapper as MonoDevelop.GtkCore2.Designer.Wrapper.Widget;
 			if (ob == null) return;
 			
 			foreach (ItemGroup group in klass.SignalGroups) {
@@ -528,7 +528,7 @@ namespace Stetic {
 					GLib.Value value = ParseProperty (prop.ParamSpec, prop.PropertyType, prop_elem.InnerText);
 					prop.SetValue (wrapper.Wrapped, value.Val);
 				} catch {
-					throw new GladeException ("Could not parse property", wrapper.GetType ().ToString (), wrapper is Stetic.Wrapper.Container.ContainerChild, prop.GladeName, prop_elem.InnerText);
+					throw new GladeException ("Could not parse property", wrapper.GetType ().ToString (), wrapper is MonoDevelop.GtkCore2.Designer.Wrapper.Container.ContainerChild, prop.GladeName, prop_elem.InnerText);
 				}
 			}
 		}
@@ -558,7 +558,7 @@ namespace Stetic {
 			}
 		}
 
-		static public void SetPacking (Stetic.Wrapper.Container.ContainerChild wrapper, XmlElement child_elem)
+		static public void SetPacking (MonoDevelop.GtkCore2.Designer.Wrapper.Container.ContainerChild wrapper, XmlElement child_elem)
 		{
 			XmlElement packing = child_elem["packing"];
 			if (packing == null)
@@ -586,7 +586,7 @@ namespace Stetic {
 			MarkTranslatables (cc, overrideProps);
 		}
 		
-		internal static XmlElement CreatePacking (XmlDocument doc, Stetic.Wrapper.Container.ContainerChild childwrapper)
+		internal static XmlElement CreatePacking (XmlDocument doc, MonoDevelop.GtkCore2.Designer.Wrapper.Container.ContainerChild childwrapper)
 		{
 			XmlElement packing_elem = doc.CreateElement ("packing");
 			GetProps (childwrapper, packing_elem);
@@ -598,7 +598,7 @@ namespace Stetic {
 			object value;
 
 			if (!prop.GladeOverride) {
-				Stetic.Wrapper.Container.ContainerChild ccwrap = wrapper as Stetic.Wrapper.Container.ContainerChild;
+				MonoDevelop.GtkCore2.Designer.Wrapper.Container.ContainerChild ccwrap = wrapper as MonoDevelop.GtkCore2.Designer.Wrapper.Container.ContainerChild;
 				GLib.Value gval;
 
 				if (ccwrap != null) {
@@ -716,7 +716,7 @@ namespace Stetic {
 
 		static public void GetSignals (ObjectWrapper wrapper, XmlElement parent_elem)
 		{
-			Stetic.Wrapper.Widget ob = wrapper as Stetic.Wrapper.Widget;
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget ob = wrapper as MonoDevelop.GtkCore2.Designer.Wrapper.Widget;
 			if (ob == null) return;
 			
 			foreach (Signal signal in ob.Signals) {

@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Collections;
 using Gtk;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	class StockIconList : IconList 
 	{

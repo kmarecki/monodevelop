@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 
 	public class ParamSpec : IDisposable {
 		IntPtr _obj;

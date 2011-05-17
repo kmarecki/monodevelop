@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	[Serializable]
 	public class SignalCollection: CollectionBase

@@ -3,7 +3,7 @@ using System.CodeDom;
 using System.Collections;
 using System.Xml;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class Button : Container {
 		
@@ -76,7 +76,7 @@ namespace Stetic.Wrapper {
 			Gtk.Label label = children[1] as Gtk.Label;
 			if (image == null || label == null)
 				return;
-			Stetic.Wrapper.Image iwrap = Stetic.ObjectWrapper.Lookup (image) as Stetic.Wrapper.Image;
+			MonoDevelop.GtkCore2.Designer.Wrapper.Image iwrap = MonoDevelop.GtkCore2.Designer.ObjectWrapper.Lookup (image) as MonoDevelop.GtkCore2.Designer.Wrapper.Image;
 			if (iwrap == null)
 				return;
 

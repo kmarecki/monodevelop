@@ -4,7 +4,7 @@ using System.Collections;
 using Gtk;
 using Gdk;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class WidgetSelector: ComboBox, IPropertyEditor
 	{
@@ -36,7 +36,7 @@ namespace Stetic.Editor
 			store.Clear ();
 			widgets.Clear ();
 			
-			Stetic.Wrapper.Widget widget = Stetic.Wrapper.Widget.Lookup (obj);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget widget = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (obj);
 			if (widget == null)
 				return;
 				
@@ -47,7 +47,7 @@ namespace Stetic.Editor
 			FillWidgets (widget, 0);
 		}
 		
-		void FillWidgets (Stetic.Wrapper.Widget widget, int level)
+		void FillWidgets (MonoDevelop.GtkCore2.Designer.Wrapper.Widget widget, int level)
 		{
 			if (!widget.Unselectable) {
 				TreeIter iter = store.AppendValues (widget.ClassDescriptor.Icon, widget.Wrapped.Name);
@@ -56,7 +56,7 @@ namespace Stetic.Editor
 			Gtk.Container cont = widget.Wrapped as Gtk.Container;
 			if (cont != null && widget.ClassDescriptor.AllowChildren) {
 				foreach (Gtk.Widget child in cont.AllChildren) {
-					Stetic.Wrapper.Widget cwidget = Stetic.Wrapper.Widget.Lookup (child);
+					MonoDevelop.GtkCore2.Designer.Wrapper.Widget cwidget = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (child);
 					if (cwidget != null)
 						FillWidgets (cwidget, level+1);
 				}

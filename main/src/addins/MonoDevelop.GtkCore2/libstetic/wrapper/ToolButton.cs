@@ -2,7 +2,7 @@ using System;
 using System.CodeDom;
 using System.Xml;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class ToolButton : Widget {
 

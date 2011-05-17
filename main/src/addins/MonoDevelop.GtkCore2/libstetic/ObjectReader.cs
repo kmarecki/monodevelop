@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Xml;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public class ObjectReader
 	{
@@ -27,12 +27,12 @@ namespace Stetic
 		
 		public virtual ObjectWrapper ReadObject (XmlElement elem, ObjectWrapper root)
 		{
-			return Stetic.ObjectWrapper.ReadObject (this, elem, root);
+			return MonoDevelop.GtkCore2.Designer.ObjectWrapper.ReadObject (this, elem, root);
 		}
 		
 		public virtual void ReadExistingObject (ObjectWrapper wrapper, XmlElement elem)
 		{
-			Stetic.ObjectWrapper.ReadExistingObject (this, elem, wrapper);
+			MonoDevelop.GtkCore2.Designer.ObjectWrapper.ReadExistingObject (this, elem, wrapper);
 		}
 	}
 }

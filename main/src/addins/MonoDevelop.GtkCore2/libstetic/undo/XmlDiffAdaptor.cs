@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Xml;
 
-namespace Stetic.Undo
+namespace MonoDevelop.GtkCore2.Designer.Undo
 {
 	class XmlDiffAdaptor: IDiffAdaptor
 	{

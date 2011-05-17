@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using Mono.Unix;
 
-namespace Stetic.Editor {
+namespace MonoDevelop.GtkCore2.Designer.Editor {
 
 	[PropertyEditor ("Accel", "AccelChanged")]
 	public class Accelerator : Gtk.HBox, IPropertyEditor {

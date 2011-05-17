@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.CodeDom;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public enum ImageSource
 	{

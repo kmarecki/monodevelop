@@ -3,7 +3,7 @@ using System.Xml;
 using System.Collections;
 using System.CodeDom;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class ButtonBox : Box {
 

@@ -1,5 +1,5 @@
 
-namespace Stetic.Wrapper
+namespace MonoDevelop.GtkCore2.Designer.Wrapper
 {
 	public delegate void WidgetNameChangedHandler (object sender, WidgetNameChangedArgs args);
 
@@ -8,7 +8,7 @@ namespace Stetic.Wrapper
 		string oldName;
 		string newName;
 		
-		public WidgetNameChangedArgs (Stetic.Wrapper.Widget widget, string oldName, string newName): base (widget)
+		public WidgetNameChangedArgs (MonoDevelop.GtkCore2.Designer.Wrapper.Widget widget, string oldName, string newName): base (widget)
 		{
 			this.oldName = oldName;
 			this.newName = newName;

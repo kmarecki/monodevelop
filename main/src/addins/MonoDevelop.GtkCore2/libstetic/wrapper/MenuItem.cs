@@ -1,7 +1,7 @@
 using System;
 using System.Xml;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class MenuItem : Container {
 

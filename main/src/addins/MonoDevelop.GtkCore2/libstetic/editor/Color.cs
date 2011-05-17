@@ -1,6 +1,6 @@
 using System;
 
-namespace Stetic.Editor {
+namespace MonoDevelop.GtkCore2.Designer.Editor {
 
 	public class Color: PropertyEditorCell 
 	{

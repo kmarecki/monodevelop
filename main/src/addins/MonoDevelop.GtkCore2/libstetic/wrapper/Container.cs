@@ -4,10 +4,10 @@ using System.Collections;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
-using Stetic.Undo;
-using Stetic.Editor;
+using MonoDevelop.GtkCore2.Designer.Undo;
+using MonoDevelop.GtkCore2.Designer.Editor;
 
-namespace Stetic.Wrapper
+namespace MonoDevelop.GtkCore2.Designer.Wrapper
 {
 	public class Container : Widget
 	{
@@ -41,7 +41,7 @@ namespace Stetic.Wrapper
 				Gtk.Widget child = prop.GetValue (container) as Gtk.Widget;
 				if (child == null)
 					continue;
-				Widget wrapper = ObjectWrapper.Create (proj, child, this) as Stetic.Wrapper.Widget;
+				Widget wrapper = ObjectWrapper.Create (proj, child, this) as MonoDevelop.GtkCore2.Designer.Wrapper.Widget;
 				wrapper.InternalChildProperty = prop;
 				if (child.Name == ((GLib.GType)child.GetType ()).ToString ())
 					child.Name = container.Name + "_" + prop.Name;
@@ -295,7 +295,7 @@ namespace Stetic.Wrapper
 							continue;
 						container.Remove (child);
 						child.Destroy ();
-					} else if (child is Stetic.Placeholder) {
+					} else if (child is MonoDevelop.GtkCore2.Designer.Placeholder) {
 						container.Remove (child);
 						child.Destroy ();
 					}
@@ -450,10 +450,10 @@ namespace Stetic.Wrapper
 						child_elem = WriteChild (writer, wrapper);
 						if (child_elem != null)
 							elem.AppendChild (child_elem);
-					} else if (child is Stetic.Placeholder) {
+					} else if (child is MonoDevelop.GtkCore2.Designer.Placeholder) {
 						child_elem = writer.XmlDocument.CreateElement ("child");
 						if (writer.CreateUndoInfo)
-							child_elem.SetAttribute ("undoId", ((Stetic.Placeholder)child).UndoId);
+							child_elem.SetAttribute ("undoId", ((MonoDevelop.GtkCore2.Designer.Placeholder)child).UndoId);
 						child_elem.AppendChild (writer.XmlDocument.CreateElement ("placeholder"));
 						elem.AppendChild (child_elem);
 					}
@@ -734,7 +734,7 @@ namespace Stetic.Wrapper
 
 		public static new Container Lookup (GLib.Object obj)
 		{
-			return Stetic.ObjectWrapper.Lookup (obj) as Stetic.Wrapper.Container;
+			return MonoDevelop.GtkCore2.Designer.ObjectWrapper.Lookup (obj) as MonoDevelop.GtkCore2.Designer.Wrapper.Container;
 		}
 
 		public static Container LookupParent (Gtk.Widget widget)
@@ -750,8 +750,8 @@ namespace Stetic.Wrapper
 			return wrapper;
 		}
 
-		public static Stetic.Wrapper.Container.ContainerChild ChildWrapper (Stetic.Wrapper.Widget wrapper) {
-			Stetic.Wrapper.Container parentWrapper = wrapper.ParentWrapper;
+		public static MonoDevelop.GtkCore2.Designer.Wrapper.Container.ContainerChild ChildWrapper (MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper) {
+			MonoDevelop.GtkCore2.Designer.Wrapper.Container parentWrapper = wrapper.ParentWrapper;
 			if (parentWrapper == null)
 				return null;
 
@@ -770,7 +770,7 @@ namespace Stetic.Wrapper
 			if (cwrap != null)
 				return cwrap;
 			else
-				return Stetic.ObjectWrapper.Create (parentWrapper.proj, cc, parentWrapper) as ContainerChild;
+				return MonoDevelop.GtkCore2.Designer.ObjectWrapper.Create (parentWrapper.proj, cc, parentWrapper) as ContainerChild;
 		}
 
 		protected Gtk.Container.ContainerChild ContextChildProps (Gtk.Widget context)
@@ -842,7 +842,7 @@ namespace Stetic.Wrapper
 			"Gtk.Statusbar", "Gtk.HSeparator", "Gtk.VSeparator"
 		};
 
-		void PlaceholderDrop (Placeholder ph, Stetic.Wrapper.Widget wrapper)
+		void PlaceholderDrop (Placeholder ph, MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper)
 		{
 			Gtk.Dialog parentDialog = Wrapped.Parent as Gtk.Dialog;
 			if (showNonContainerWarning && (IsTopLevel || (parentDialog != null && parentDialog.VBox == Wrapped))) {
@@ -873,7 +873,7 @@ namespace Stetic.Wrapper
 		{
 			Placeholder ph = FindPlaceholder (container, data);
 			if (ph != null) {
-				Widget dropped = Stetic.Wrapper.Widget.Lookup (w);
+				Widget dropped = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (w);
 				if (dropped != null)
 					PlaceholderDrop (ph, dropped);
 			}
@@ -1159,7 +1159,7 @@ namespace Stetic.Wrapper
 			}
 		}
 
-		public virtual void Delete (Stetic.Wrapper.Widget wrapper)
+		public virtual void Delete (MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper)
 		{
 			using (UndoManager.AtomicChange) {
 				if (AllowPlaceholders)
@@ -1171,7 +1171,7 @@ namespace Stetic.Wrapper
 			}
 		}
 
-		public virtual void Delete (Stetic.Placeholder ph)
+		public virtual void Delete (MonoDevelop.GtkCore2.Designer.Placeholder ph)
 		{
 			if (AllowPlaceholders) {
 				// Don't allow deleting the only placeholder of a top level container
@@ -1194,7 +1194,7 @@ namespace Stetic.Wrapper
 			else if (child is Placeholder)
 				return true;
 
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (child);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (child);
 			if (wrapper != null)
 				return wrapper.HExpandable;
 			else
@@ -1208,7 +1208,7 @@ namespace Stetic.Wrapper
 			else if (child is Placeholder)
 				return true;
 
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (child);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (child);
 			if (wrapper != null)
 				return wrapper.VExpandable;
 			else
@@ -1384,7 +1384,7 @@ namespace Stetic.Wrapper
 		
 		
 		
-		public class ContainerChild : Stetic.ObjectWrapper
+		public class ContainerChild : MonoDevelop.GtkCore2.Designer.ObjectWrapper
 		{
 			internal static void Register ()
 			{
@@ -1434,9 +1434,9 @@ namespace Stetic.Wrapper
 				}
 			}
 
-			protected Stetic.Wrapper.Container ParentWrapper {
+			protected MonoDevelop.GtkCore2.Designer.Wrapper.Container ParentWrapper {
 				get {
-					return Stetic.Wrapper.Container.Lookup (cc.Parent);
+					return MonoDevelop.GtkCore2.Designer.Wrapper.Container.Lookup (cc.Parent);
 				}
 			}
 

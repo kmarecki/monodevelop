@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Reflection;
 
-namespace Stetic.Editor 
+namespace MonoDevelop.GtkCore2.Designer.Editor 
 {
 	public class ResponseId: PropertyEditorCell
 	{

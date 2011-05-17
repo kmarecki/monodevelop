@@ -4,7 +4,7 @@ using Gtk;
 using Gdk;
 using System.Text;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class TimeSpanEditorCell: PropertyEditorCell
 	{

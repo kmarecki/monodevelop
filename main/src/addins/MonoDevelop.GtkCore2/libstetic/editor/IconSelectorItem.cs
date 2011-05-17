@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using System.Collections;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class IconSelectorItem: Gtk.EventBox
 	{

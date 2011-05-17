@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Xml;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public abstract class WidgetLibrary: IDisposable
 	{

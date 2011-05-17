@@ -1,6 +1,6 @@
 using System;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class Paned : Container {
 
@@ -65,7 +65,7 @@ namespace Stetic.Wrapper {
 			NotifyChildAdded (newChild);
 		}
 		
-		public override void Delete (Stetic.Placeholder ph)
+		public override void Delete (MonoDevelop.GtkCore2.Designer.Placeholder ph)
 		{
 			// Don't allow deleting placeholders
 		}

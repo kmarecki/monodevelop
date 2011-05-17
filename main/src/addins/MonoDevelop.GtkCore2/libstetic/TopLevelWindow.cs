@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public class TopLevelWindow: Gtk.EventBox
 	{

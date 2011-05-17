@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public interface IResourceProvider
 	{

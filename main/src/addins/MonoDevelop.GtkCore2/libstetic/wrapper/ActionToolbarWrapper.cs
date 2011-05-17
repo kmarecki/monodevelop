@@ -3,9 +3,9 @@ using System;
 using System.CodeDom;
 using System.Xml;
 using System.Collections;
-using Stetic.Editor;
+using MonoDevelop.GtkCore2.Designer.Editor;
 
-namespace Stetic.Wrapper
+namespace MonoDevelop.GtkCore2.Designer.Wrapper
 {
 	public class ActionToolbarWrapper: Container
 	{

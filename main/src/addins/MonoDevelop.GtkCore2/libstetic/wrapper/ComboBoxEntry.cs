@@ -1,7 +1,7 @@
 using System;
 using System.CodeDom;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class ComboBoxEntry : ComboBox {
 

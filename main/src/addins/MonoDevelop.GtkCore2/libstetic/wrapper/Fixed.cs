@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Stetic.Wrapper
+namespace MonoDevelop.GtkCore2.Designer.Wrapper
 {
 	public class Fixed: Container
 	{

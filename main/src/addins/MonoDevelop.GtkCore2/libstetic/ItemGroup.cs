@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Xml;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 	public class ItemGroup : IEnumerable
 	{
 		public static ItemGroup Empty;

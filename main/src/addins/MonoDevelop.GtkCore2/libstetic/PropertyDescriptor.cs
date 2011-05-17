@@ -4,7 +4,7 @@ using System.Collections;
 using System.Reflection;
 using System.Xml;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 
 	class TranslationInfo {
 		public bool Translated;

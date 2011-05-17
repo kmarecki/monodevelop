@@ -3,9 +3,9 @@ using System;
 using System.CodeDom;
 using System.Xml;
 using System.Collections;
-using Stetic.Undo;
+using MonoDevelop.GtkCore2.Designer.Undo;
 
-namespace Stetic.Wrapper
+namespace MonoDevelop.GtkCore2.Designer.Wrapper
 {
 	public sealed class ActionGroup: ObjectWrapper
 	{

@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Gtk;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public class TopLevelDialog: TopLevelWindow
 	{

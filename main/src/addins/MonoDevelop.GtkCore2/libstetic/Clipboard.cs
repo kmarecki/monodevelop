@@ -2,7 +2,7 @@ using Gtk;
 using System;
 using System.Xml;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 
 	internal static class Clipboard {
 
@@ -61,7 +61,7 @@ namespace Stetic {
 		public static void Cut (Gtk.Widget widget)
 		{
 			Copy (widget);
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (widget);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (widget);
 			if (wrapper != null)
 				wrapper.Delete ();
 		}
@@ -70,11 +70,11 @@ namespace Stetic {
 
 		static void ClipboardPaste (Gtk.Clipboard clipboard, Gtk.SelectionData seldata)
 		{
-			Stetic.Wrapper.Container parent = Stetic.Wrapper.Container.LookupParent (target);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Container parent = MonoDevelop.GtkCore2.Designer.Wrapper.Container.LookupParent (target);
 			if (parent == null)
 				return;
 
-			Stetic.Wrapper.Widget wrapper = WidgetUtils.Paste (parent.Project, seldata);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper = WidgetUtils.Paste (parent.Project, seldata);
 			if (wrapper == null)
 				return;
 

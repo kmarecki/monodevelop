@@ -5,7 +5,7 @@ using System.IO;
 using Gtk;
 using Mono.Unix;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class EditIconFactoryDialog: IDisposable
 	{
@@ -15,10 +15,10 @@ namespace Stetic.Editor
 		ProjectIconList customIconList;
 		
 		Gtk.Window parent;
-		Stetic.IProject project;
+		MonoDevelop.GtkCore2.Designer.IProject project;
 		ProjectIconFactory iconFactory;
 		
-		public EditIconFactoryDialog (Gtk.Window parent, Stetic.IProject project, ProjectIconFactory iconFactory)
+		public EditIconFactoryDialog (Gtk.Window parent, MonoDevelop.GtkCore2.Designer.IProject project, ProjectIconFactory iconFactory)
 		{
 			this.iconFactory = iconFactory;
 			this.parent = parent;

@@ -2,7 +2,7 @@ using System;
 using System.CodeDom;
 using System.Reflection;
 
-namespace Stetic.Wrapper
+namespace MonoDevelop.GtkCore2.Designer.Wrapper
 {
 	public class Bin: Container
 	{

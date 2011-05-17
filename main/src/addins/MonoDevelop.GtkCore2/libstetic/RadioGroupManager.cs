@@ -26,7 +26,7 @@ using System.CodeDom;
 // RadioGroupManager to handle this string<->GLib.SList translation
 // for it.
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 
 	public class RadioGroup {
 		public string Name;

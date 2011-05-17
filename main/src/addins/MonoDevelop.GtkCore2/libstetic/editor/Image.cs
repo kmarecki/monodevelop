@@ -3,7 +3,7 @@ using System.Collections;
 using System.Reflection;
 using Mono.Unix;
 
-namespace Stetic.Editor {
+namespace MonoDevelop.GtkCore2.Designer.Editor {
 
 	[PropertyEditor ("Value", "Changed")]
 	public class Image : Gtk.HBox, IPropertyEditor {

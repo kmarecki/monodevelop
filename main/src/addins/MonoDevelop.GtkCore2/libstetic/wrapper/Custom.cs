@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace Stetic 
+namespace MonoDevelop.GtkCore2.Designer 
 {
 	public class Custom : Gtk.DrawingArea 
 	{

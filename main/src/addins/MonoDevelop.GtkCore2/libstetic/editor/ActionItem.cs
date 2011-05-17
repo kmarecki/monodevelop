@@ -1,8 +1,8 @@
 
 using System;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	abstract class ActionItem: Gtk.EventBox, IEditableObject
 	{

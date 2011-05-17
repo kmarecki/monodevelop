@@ -1,6 +1,6 @@
 using System;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public delegate void ObjectWrapperEventHandler (object sender, ObjectWrapperEventArgs args);
 	

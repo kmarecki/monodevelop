@@ -2,9 +2,9 @@
 using System;
 using System.Xml;
 using System.Collections;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	// This class holds an xml tree which describes the whole widget structure being designed.
 	// It is used by the Undo/Redo infrastructure to keep track of changes in widgets.

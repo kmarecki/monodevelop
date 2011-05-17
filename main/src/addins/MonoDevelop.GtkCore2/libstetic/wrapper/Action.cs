@@ -4,11 +4,11 @@ using System.Text;
 using System.Xml;
 using System.CodeDom;
 using System.Collections;
-using Stetic.Undo;
+using MonoDevelop.GtkCore2.Designer.Undo;
 
-namespace Stetic.Wrapper
+namespace MonoDevelop.GtkCore2.Designer.Wrapper
 {
-	public sealed class Action: Stetic.Wrapper.Object, IRadioGroupManagerProvider
+	public sealed class Action: MonoDevelop.GtkCore2.Designer.Wrapper.Object, IRadioGroupManagerProvider
 	{
 		ActionType type;
 		bool drawAsRadio;

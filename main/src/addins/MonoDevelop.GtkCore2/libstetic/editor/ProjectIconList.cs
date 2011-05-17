@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using Gtk;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	class ProjectIconList : IconList 
 	{

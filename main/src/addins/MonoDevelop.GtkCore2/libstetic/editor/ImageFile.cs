@@ -1,6 +1,6 @@
 using System;
 
-namespace Stetic.Editor {
+namespace MonoDevelop.GtkCore2.Designer.Editor {
 
 	[PropertyEditor ("File", "Changed")]
 	public class ImageFile : Image {

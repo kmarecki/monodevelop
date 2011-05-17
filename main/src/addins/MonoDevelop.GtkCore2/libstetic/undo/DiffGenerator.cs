@@ -2,9 +2,9 @@
 using System;
 using System.Collections;
 using System.Xml;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 
-namespace Stetic.Undo
+namespace MonoDevelop.GtkCore2.Designer.Undo
 {
 	class DiffGenerator
 	{

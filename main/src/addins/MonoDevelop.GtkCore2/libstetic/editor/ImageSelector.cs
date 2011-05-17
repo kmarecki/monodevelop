@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class BaseImageCell: PropertyEditorCell
 	{
@@ -58,7 +58,7 @@ namespace Stetic.Editor
 			if (Instance == null)
 				return;
 
-			Stetic.ObjectWrapper w = Stetic.ObjectWrapper.Lookup (Instance);
+			MonoDevelop.GtkCore2.Designer.ObjectWrapper w = MonoDevelop.GtkCore2.Designer.ObjectWrapper.Lookup (Instance);
 			project = w.Project;
 			imageInfo = (ImageInfo)Value;
 			if (imageInfo != null)
@@ -144,7 +144,7 @@ namespace Stetic.Editor
 		// Called when the object to be edited changes.
 		public void AttachObject (object obj)
 		{
-			Stetic.ObjectWrapper w = Stetic.ObjectWrapper.Lookup (obj);
+			MonoDevelop.GtkCore2.Designer.ObjectWrapper w = MonoDevelop.GtkCore2.Designer.ObjectWrapper.Lookup (obj);
 			project = w.Project;
 		}
 		

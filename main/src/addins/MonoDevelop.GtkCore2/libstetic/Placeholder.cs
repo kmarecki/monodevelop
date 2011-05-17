@@ -1,7 +1,7 @@
 using Gtk;
 using System;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 
 	public class Placeholder : Gtk.DrawingArea, IEditableObject
 	{
@@ -128,7 +128,7 @@ namespace Stetic {
 
 		void IEditableObject.Delete ()
 		{
-			Stetic.Wrapper.Container wc = Stetic.Wrapper.Container.LookupParent (this);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Container wc = MonoDevelop.GtkCore2.Designer.Wrapper.Container.LookupParent (this);
 			if (wc != null)
 				wc.Delete (this);
 		}

@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	// This widget is used at design-time to represent a Gtk.Bin container.
 	// Gtk.Bin is the base class for custom widgets.

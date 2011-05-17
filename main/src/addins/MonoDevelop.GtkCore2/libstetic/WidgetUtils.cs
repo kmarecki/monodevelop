@@ -3,9 +3,9 @@ using System.IO;
 using System.Reflection;
 using System.Collections;
 using System.Xml;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public static class WidgetUtils
 	{
@@ -25,7 +25,7 @@ namespace Stetic
 		public static XmlElement ExportWidget (Gtk.Widget widget)
 		{
 			XmlDocument doc = new XmlDocument ();
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (widget);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (widget);
 			if (wrapper == null)
 				throw new InvalidOperationException ();
 				
@@ -37,7 +37,7 @@ namespace Stetic
 		public static Gtk.Widget ImportWidget (IProject project, XmlElement element)
 		{
 			ObjectReader reader = new ObjectReader (project, FileFormat.Native);
-			ObjectWrapper wrapper = Stetic.ObjectWrapper.ReadObject (reader, element, null);
+			ObjectWrapper wrapper = MonoDevelop.GtkCore2.Designer.ObjectWrapper.ReadObject (reader, element, null);
 			return wrapper.Wrapped as Gtk.Widget;
 		}
 		
@@ -200,7 +200,7 @@ namespace Stetic
 			}
 		}
 		
-		static public void SetPacking (Stetic.Wrapper.Container.ContainerChild wrapper, XmlElement child_elem)
+		static public void SetPacking (MonoDevelop.GtkCore2.Designer.Wrapper.Container.ContainerChild wrapper, XmlElement child_elem)
 		{
 			XmlElement packing = child_elem["packing"];
 			if (packing == null)
@@ -211,7 +211,7 @@ namespace Stetic
 			ReadMembers (klass, wrapper, cc, packing);
 		}
 		
-		internal static XmlElement CreatePacking (XmlDocument doc, Stetic.Wrapper.Container.ContainerChild childwrapper)
+		internal static XmlElement CreatePacking (XmlDocument doc, MonoDevelop.GtkCore2.Designer.Wrapper.Container.ContainerChild childwrapper)
 		{
 			XmlElement packing_elem = doc.CreateElement ("packing");
 			WidgetUtils.GetProps (childwrapper, packing_elem);
@@ -230,7 +230,7 @@ namespace Stetic
 				seldata.Set (ApplicationXSteticAtom, 8, System.Text.Encoding.UTF8.GetBytes (elem.OuterXml));
 		}
 
-		public static Stetic.Wrapper.Widget Paste (IProject project, Gtk.SelectionData seldata)
+		public static MonoDevelop.GtkCore2.Designer.Wrapper.Widget Paste (IProject project, Gtk.SelectionData seldata)
 		{
 			if (seldata == null || seldata.Type == null || seldata.Type.Name != ApplicationXSteticAtom.Name)
 				return null;

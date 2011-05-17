@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public class TypedClassDescriptor: ClassDescriptor 
 	{

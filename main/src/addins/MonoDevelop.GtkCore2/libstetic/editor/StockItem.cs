@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Stetic.Editor {
+namespace MonoDevelop.GtkCore2.Designer.Editor {
 
 	internal static class GnomeStock {
 
@@ -47,8 +47,8 @@ namespace Stetic.Editor {
 			base.Initialize ();
 			string name = (string)Value;
 			if (name != null) {
-				Stetic.ObjectWrapper w = Stetic.ObjectWrapper.Lookup (Instance);
-				Stetic.IProject project = w.Project;
+				var w = MonoDevelop.GtkCore2.Designer.ObjectWrapper.Lookup (Instance);
+				MonoDevelop.GtkCore2.Designer.IProject project = w.Project;
 				Gdk.Pixbuf px = project.IconFactory.RenderIcon (project, name, ImageSize);
 				if (px != null) {
 					Image = px;
@@ -165,7 +165,7 @@ namespace Stetic.Editor {
 		// Called when the object to be edited changes.
 		public void AttachObject (object obj)
 		{
-			Stetic.ObjectWrapper w = Stetic.ObjectWrapper.Lookup (obj);
+			MonoDevelop.GtkCore2.Designer.ObjectWrapper w = MonoDevelop.GtkCore2.Designer.ObjectWrapper.Lookup (obj);
 			project = w.Project;
 		}
 		

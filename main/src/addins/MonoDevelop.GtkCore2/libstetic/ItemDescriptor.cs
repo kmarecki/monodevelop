@@ -3,7 +3,7 @@ using System.Collections;
 using System.Xml;
 using System.Reflection;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	[Serializable]
 	public abstract class ItemDescriptor

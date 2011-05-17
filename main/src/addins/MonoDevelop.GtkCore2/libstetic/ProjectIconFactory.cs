@@ -4,7 +4,7 @@ using System.CodeDom;
 using System.Xml;
 using System.Collections;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public class ProjectIconFactory
 	{

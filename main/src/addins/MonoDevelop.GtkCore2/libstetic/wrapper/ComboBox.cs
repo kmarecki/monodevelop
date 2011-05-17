@@ -3,7 +3,7 @@ using System.Xml;
 using System.CodeDom;
 using System.Runtime.InteropServices;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class ComboBox : Container {
 

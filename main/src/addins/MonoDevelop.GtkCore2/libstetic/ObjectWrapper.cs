@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 
 	public enum FileFormat {
 		Native,
@@ -303,7 +303,7 @@ namespace Stetic {
 			if (obj == null)
 				return null;
 			else
-				return wrappers [GetIndentityObject (obj)] as Stetic.ObjectWrapper;
+				return wrappers [GetIndentityObject (obj)] as MonoDevelop.GtkCore2.Designer.ObjectWrapper;
 		}
 
 		public object Wrapped {

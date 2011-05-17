@@ -2,7 +2,7 @@ using System;
 using System.CodeDom;
 using System.Collections;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	public class GeneratorContext
 	{

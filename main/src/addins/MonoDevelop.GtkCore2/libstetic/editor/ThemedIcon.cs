@@ -1,7 +1,7 @@
 using Gtk;
 using System;
 
-namespace Stetic.Editor {
+namespace MonoDevelop.GtkCore2.Designer.Editor {
 
 	[PropertyEditor ("Value", "Changed")]
 	public class ThemedIcon : Gtk.HBox, IPropertyEditor {

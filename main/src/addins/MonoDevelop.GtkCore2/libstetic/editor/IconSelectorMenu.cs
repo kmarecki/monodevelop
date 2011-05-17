@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Collections;
 using Mono.Unix;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class IconSelectorMenu: Gtk.Menu
 	{
@@ -43,7 +43,7 @@ namespace Stetic.Editor
 		
 		void OnSetStockActionType (object ob, EventArgs args)
 		{
-			Stetic.Editor.SelectIconDialog dialog = new Stetic.Editor.SelectIconDialog (this.Toplevel as Gtk.Window, project);
+			var dialog = new MonoDevelop.GtkCore2.Designer.Editor.SelectIconDialog (this.Toplevel as Gtk.Window, project);
 			using (dialog)
 			{
 				if (dialog.Run () != (int) Gtk.ResponseType.Ok)

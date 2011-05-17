@@ -2,11 +2,11 @@ using System;
 using System.Xml;
 using System.Collections;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class Dialog : Window {
 
-		Stetic.Wrapper.ButtonBox actionArea;
+		MonoDevelop.GtkCore2.Designer.Wrapper.ButtonBox actionArea;
 
 		public override void Wrap (object obj, bool initialized)
 		{
@@ -121,11 +121,11 @@ namespace Stetic.Wrapper {
 
 		Gtk.Button AddButton (string stockId, Gtk.ResponseType response, bool hasDefault)
 		{
-			Stetic.Wrapper.Button wrapper;
+			MonoDevelop.GtkCore2.Designer.Wrapper.Button wrapper;
 			Gtk.Button button;
 
 			button = (Gtk.Button)Registry.NewInstance ("Gtk.Button", proj);
-			wrapper = (Stetic.Wrapper.Button) ObjectWrapper.Lookup (button);
+			wrapper = (MonoDevelop.GtkCore2.Designer.Wrapper.Button) ObjectWrapper.Lookup (button);
 			if (stockId != null) {
 				wrapper.Type = Button.ButtonType.StockItem;
 				wrapper.StockId = stockId;
@@ -135,7 +135,7 @@ namespace Stetic.Wrapper {
 			}
 			wrapper.ResponseId = (int)response;
 
-			Stetic.Wrapper.Container actionArea = Stetic.Wrapper.Container.Lookup (dialog.ActionArea);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Container actionArea = MonoDevelop.GtkCore2.Designer.Wrapper.Container.Lookup (dialog.ActionArea);
 			actionArea.Add (button);
 
 			button.CanDefault = true;

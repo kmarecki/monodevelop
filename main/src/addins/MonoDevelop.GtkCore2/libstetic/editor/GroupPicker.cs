@@ -6,7 +6,7 @@ using System.Collections;
 using System.Reflection;
 using Mono.Unix;
 
-namespace Stetic.Editor {
+namespace MonoDevelop.GtkCore2.Designer.Editor {
 
 	[PropertyEditor ("Group", "Changed")]
 	class GroupPicker : Gtk.HBox, IPropertyEditor {

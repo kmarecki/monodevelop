@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.CodeDom;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class ScrolledWindow : Container {
 
@@ -102,7 +102,7 @@ namespace Stetic.Wrapper {
 				base.GenerateChildBuildCode (ctx, parentVar, wrapper);
 		}
 
-		public override void Delete (Stetic.Placeholder ph)
+		public override void Delete (MonoDevelop.GtkCore2.Designer.Placeholder ph)
 		{
 			using (UndoManager.AtomicChange) {
 				Delete ();

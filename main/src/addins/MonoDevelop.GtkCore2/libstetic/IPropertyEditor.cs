@@ -1,6 +1,6 @@
 using System;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	// Property editors must be Gtk Widgets and implement this interface
 	

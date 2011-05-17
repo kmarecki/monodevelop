@@ -2,10 +2,10 @@
 using System;
 using System.Xml;
 using System.Collections;
-using Stetic.Wrapper;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
 using Mono.Unix;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	class ActionMenuBar: Gtk.MenuBar, IMenuItemContainer
 	{

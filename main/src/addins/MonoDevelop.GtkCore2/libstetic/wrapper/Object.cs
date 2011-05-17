@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 
-namespace Stetic.Wrapper {
-	public abstract class Object : Stetic.ObjectWrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
+	public abstract class Object : MonoDevelop.GtkCore2.Designer.ObjectWrapper {
 
 		public override void Dispose ()
 		{
@@ -26,7 +26,7 @@ namespace Stetic.Wrapper {
 		
 		public static Object Lookup (GLib.Object obj)
 		{
-			return Stetic.ObjectWrapper.Lookup (obj) as Stetic.Wrapper.Object;
+			return MonoDevelop.GtkCore2.Designer.ObjectWrapper.Lookup (obj) as MonoDevelop.GtkCore2.Designer.Wrapper.Object;
 		}
 
 		void NotifyHandler (object obj, GLib.NotifyArgs args)

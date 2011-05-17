@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using Gtk;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	// This is the internal class the represents the actual two-column
 	// icon list. This can't just be handled as an HBox inside the main

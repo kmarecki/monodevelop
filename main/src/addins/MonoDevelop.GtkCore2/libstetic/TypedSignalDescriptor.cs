@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using System.Xml;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Designer
 {
 	[Serializable]
 	public class TypedSignalDescriptor: SignalDescriptor

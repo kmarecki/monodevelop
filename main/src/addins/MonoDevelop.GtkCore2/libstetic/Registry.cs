@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.Xsl;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Designer {
 	public static class Registry {
 
 		static ArrayList libraries = new ArrayList ();

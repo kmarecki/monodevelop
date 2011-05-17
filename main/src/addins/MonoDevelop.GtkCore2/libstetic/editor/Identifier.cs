@@ -4,7 +4,7 @@ using System.Text;
 using Gtk;
 using Gdk;
 
-namespace Stetic.Editor
+namespace MonoDevelop.GtkCore2.Designer.Editor
 {
 	public class Identifier: Gtk.Entry, IPropertyEditor
 	{

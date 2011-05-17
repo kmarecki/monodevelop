@@ -25,7 +25,7 @@
 //
 //
 
-namespace Stetic.Wrapper
+namespace MonoDevelop.GtkCore2.Designer.Wrapper
 {
 	public class IconView: Container
 	{

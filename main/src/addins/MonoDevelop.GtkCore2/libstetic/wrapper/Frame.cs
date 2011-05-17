@@ -3,7 +3,7 @@ using System.Collections;
 using System.Xml;
 using System.CodeDom;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class Frame : Container {
 
@@ -30,7 +30,7 @@ namespace Stetic.Wrapper {
 
 		void LabelWidgetChanged (object obj, GLib.NotifyArgs args)
 		{
-			if (!IsDisposed && frame.LabelWidget != null && !(frame.LabelWidget is Stetic.Placeholder))
+			if (!IsDisposed && frame.LabelWidget != null && !(frame.LabelWidget is MonoDevelop.GtkCore2.Designer.Placeholder))
 				ObjectWrapper.Create (proj, frame.LabelWidget, this);
 		}
 
@@ -82,7 +82,7 @@ namespace Stetic.Wrapper {
 				base.ReplaceChild (oldChild, newChild);
 		}
 
-		public override void Delete (Stetic.Placeholder ph)
+		public override void Delete (MonoDevelop.GtkCore2.Designer.Placeholder ph)
 		{
 			using (UndoManager.AtomicChange) {
 				Delete ();

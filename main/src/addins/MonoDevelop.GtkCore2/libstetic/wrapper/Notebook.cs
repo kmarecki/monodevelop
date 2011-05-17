@@ -3,7 +3,7 @@ using System.CodeDom;
 using System.Collections;
 using System.Xml;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class Notebook : Container {
 
@@ -74,7 +74,7 @@ namespace Stetic.Wrapper {
 				}
 				
 				// If the page contains a placeholder, generate a dummy page
-				if (page is Stetic.Placeholder) {
+				if (page is MonoDevelop.GtkCore2.Designer.Placeholder) {
 					CodeVariableDeclarationStatement dvar = new CodeVariableDeclarationStatement (
 						"Gtk.Label".ToGlobalTypeRef (),
 						ctx.NewId (),

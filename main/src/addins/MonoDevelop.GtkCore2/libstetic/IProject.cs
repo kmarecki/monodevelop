@@ -1,6 +1,6 @@
 using System;
 
-namespace Stetic 
+namespace MonoDevelop.GtkCore2.Designer 
 {
 	public interface IProject 
 	{
@@ -16,7 +16,7 @@ namespace Stetic
 //		bool Modified { get; set; }
 		IResourceProvider ResourceProvider { get; set; }
 
-		void PopupContextMenu (Stetic.Wrapper.Widget wrapper);
+		void PopupContextMenu (MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper);
 		void PopupContextMenu (Placeholder ph);
 		void AddWindow (Gtk.Window window);
 		string ImportFile (string filePath);
@@ -24,7 +24,7 @@ namespace Stetic
 		event Wrapper.WidgetEventHandler SelectionChanged;
 		
 		void NotifyObjectChanged (ObjectWrapperEventArgs args);
-		void NotifyNameChanged (Stetic.Wrapper.WidgetNameChangedArgs args);
+		void NotifyNameChanged (MonoDevelop.GtkCore2.Designer.Wrapper.WidgetNameChangedArgs args);
 		void NotifySignalAdded (SignalEventArgs args);
 		void NotifySignalRemoved (SignalEventArgs args);
 		void NotifySignalChanged (SignalChangedEventArgs args);

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class Box : Container {
 
@@ -203,7 +203,7 @@ namespace Stetic.Wrapper {
 		{
 			base.ReplaceChild (oldChild, newChild);
 
-			Container container = Stetic.Wrapper.Container.Lookup (newChild);
+			Container container = MonoDevelop.GtkCore2.Designer.Wrapper.Container.Lookup (newChild);
 			if (container != null)
 				ChildContentsChanged (container);
 		}

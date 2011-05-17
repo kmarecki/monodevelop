@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Xml;
 using System.CodeDom;
-using Stetic.Undo;
+using MonoDevelop.GtkCore2.Designer.Undo;
 
-namespace Stetic.Wrapper {
+namespace MonoDevelop.GtkCore2.Designer.Wrapper {
 
 	public class Widget : Object, IEditableObject
 	{
@@ -166,7 +166,7 @@ namespace Stetic.Wrapper {
 		
 		void InterceptClicks (Gtk.Widget widget)
 		{
-			if (widget is Stetic.Placeholder)
+			if (widget is MonoDevelop.GtkCore2.Designer.Placeholder)
 				return;
 
 			if (!widget.IsRealized)
@@ -219,7 +219,7 @@ namespace Stetic.Wrapper {
 			}
 		}
 
-		public Stetic.Wrapper.Container ParentWrapper {
+		public MonoDevelop.GtkCore2.Designer.Wrapper.Container ParentWrapper {
 			get {
 				return Container.LookupParent (Wrapped);
 			}
@@ -276,7 +276,7 @@ namespace Stetic.Wrapper {
 			}
 		}
 		
-		void OnGroupAdded (object s, Stetic.Wrapper.ActionGroupEventArgs args)
+		void OnGroupAdded (object s, MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroupEventArgs args)
 		{
 			args.ActionGroup.SignalAdded += OnSignalAdded;
 			args.ActionGroup.SignalRemoved += OnSignalRemoved;
@@ -284,7 +284,7 @@ namespace Stetic.Wrapper {
 			NotifyChanged ();
 		}
 		
-		void OnGroupRemoved (object s, Stetic.Wrapper.ActionGroupEventArgs args)
+		void OnGroupRemoved (object s, MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroupEventArgs args)
 		{
 			args.ActionGroup.SignalAdded -= OnSignalAdded;
 			args.ActionGroup.SignalRemoved -= OnSignalRemoved;
@@ -292,7 +292,7 @@ namespace Stetic.Wrapper {
 			NotifyChanged ();
 		}
 		
-		void OnGroupChanged (object s, Stetic.Wrapper.ActionGroupEventArgs args)
+		void OnGroupChanged (object s, MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroupEventArgs args)
 		{
 			NotifyChanged ();
 		}
@@ -683,7 +683,7 @@ namespace Stetic.Wrapper {
 
 		public static new Widget Lookup (GLib.Object obj)
 		{
-			return Stetic.ObjectWrapper.Lookup (obj) as Stetic.Wrapper.Widget;
+			return MonoDevelop.GtkCore2.Designer.ObjectWrapper.Lookup (obj) as MonoDevelop.GtkCore2.Designer.Wrapper.Widget;
 		}
 
 		PropertyDescriptor internalChildProperty;
