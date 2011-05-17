@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	[Serializable]
 	public class CodeGenerationResult

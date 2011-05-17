@@ -1,14 +1,18 @@
 
 using System;
 using System.Collections;
-using Stetic.Wrapper;
 using Mono.Unix;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using MonoDevelop.GtkCore2.Designer.Editor;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class ActionGroupToolbar: Gtk.Toolbar
 	{
-		Wrapper.ActionGroupCollection actionGroups;
+		ActionGroupCollection actionGroups;
 		Gtk.ComboBox combo;
 		bool updating;
 		ActionGroup currentGroup;
@@ -16,7 +20,7 @@ namespace Stetic
 		bool singleGroupMode;
 		bool allowBinding;
 		ActionGroupDesignerFrontend frontend;
-		Editor.ActionGroupEditor agroupEditor;
+		ActionGroupEditor agroupEditor;
 		Gtk.ToolButton addButton;
 		Gtk.ToolButton removeButton;
 		
@@ -28,13 +32,13 @@ namespace Stetic
 			Initialize (frontend, null, singleGroupMode);
 		}
 		
-		public ActionGroupToolbar (ActionGroupDesignerFrontend frontend, Wrapper.ActionGroup actionGroup)
+		public ActionGroupToolbar (ActionGroupDesignerFrontend frontend, ActionGroup actionGroup)
 		{
 			currentGroup = actionGroup;
 			Initialize (frontend, null, true);
 		}
 		
-		public ActionGroupToolbar (ActionGroupDesignerFrontend frontend, Wrapper.ActionGroupCollection actionGroups)
+		public ActionGroupToolbar (ActionGroupDesignerFrontend frontend, ActionGroupCollection actionGroups)
 		{
 			Initialize (frontend, actionGroups, false);
 		}
@@ -44,7 +48,7 @@ namespace Stetic
 			set { allowBinding = value; }
 		}
 		
-		void Initialize (ActionGroupDesignerFrontend frontend, Wrapper.ActionGroupCollection actionGroups, bool singleGroupMode)
+		void Initialize (ActionGroupDesignerFrontend frontend, ActionGroupCollection actionGroups, bool singleGroupMode)
 		{
 			this.frontend = frontend;
 			this.singleGroupMode = singleGroupMode;
@@ -109,7 +113,7 @@ namespace Stetic
 			base.Dispose ();
 		}
 		
-		public Wrapper.ActionGroupCollection ActionGroups {
+		public ActionGroupCollection ActionGroups {
 			get { return actionGroups; }
 			set {
 				if (singleGroupMode)
@@ -132,7 +136,7 @@ namespace Stetic
 			}
 		}
 		
-		public void Bind (Editor.ActionGroupEditor agroupEditor)
+		public void Bind (ActionGroupEditor agroupEditor)
 		{
 			this.agroupEditor = agroupEditor;
 			agroupEditor.SelectionChanged += OnEditorSelectionChanged;

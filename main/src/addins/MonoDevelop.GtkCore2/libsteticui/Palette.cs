@@ -2,7 +2,7 @@
 using System;
 using Gtk;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class Palette: PluggableWidget
 	{

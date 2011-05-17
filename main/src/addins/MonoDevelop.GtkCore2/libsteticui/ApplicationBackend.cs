@@ -10,7 +10,12 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using Mono.Remoting.Channels.Unix;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using MonoDevelop.GtkCore2.Designer.Editor;
+using Editor = MonoDevelop.GtkCore2.Designer.Editor;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class ApplicationBackend: MarshalByRefObject, IDisposable, IObjectViewer
 	{
@@ -108,7 +113,7 @@ namespace Stetic
 			set { ResourceInfo.MimeResolver = value; }
 		}
 
-		public Editor.ShowUrlDelegate ShowUrl {
+		public ShowUrlDelegate ShowUrl {
 			set { Editor.NonContainerWarningDialog.ShowUrl = value; }
 		}
 
@@ -500,7 +505,7 @@ namespace Stetic
 			ClassDescriptor cls = Registry.LookupClassByName (name);
 			ArrayList list = new ArrayList ();
 			
-			foreach (Stetic.PropertyDescriptor prop in cls.InitializationProperties)
+			foreach (PropertyDescriptor prop in cls.InitializationProperties)
 			{
 				if (prop.PropertyType.IsValueType) {
 					// Avoid sending to the main process types which should not be loaded there
@@ -530,7 +535,7 @@ namespace Stetic
 		
 		internal void GetClipboardOperations (object obj, out bool canCut, out bool canCopy, out bool canPaste)
 		{
-			Stetic.Wrapper.Widget wrapper = obj as Stetic.Wrapper.Widget;
+			Wrapper.Widget wrapper = obj as Wrapper.Widget;
 			if (wrapper != null) {
 				canCut = wrapper.InternalChildProperty == null && !wrapper.IsTopLevel;
 				canCopy = !wrapper.IsTopLevel;
@@ -548,7 +553,7 @@ namespace Stetic
 		
 		internal void GetComponentInfo (object obj, out string name, out string type)
 		{
-			Stetic.Wrapper.Widget wrapper = obj as Stetic.Wrapper.Widget;
+			Wrapper.Widget wrapper = obj as Wrapper.Widget;
 			name = wrapper.Wrapped.Name;
 			type = wrapper.ClassDescriptor.Name;
 		}
@@ -568,7 +573,7 @@ namespace Stetic
 		
 		internal ArrayList GetWidgetChildren (Wrapper.Widget ww)
 		{
-			Stetic.Wrapper.Container cw = ww as Stetic.Wrapper.Container;
+			Wrapper.Container cw = ww as Wrapper.Container;
 			if (cw == null)
 				return null;
 				
@@ -609,7 +614,7 @@ namespace Stetic
 		internal void BeginComponentDrag (ProjectBackend project, string desc, string className, ObjectWrapper wrapper, Gtk.Widget source, Gdk.DragContext ctx, ComponentDropCallback callback)
 		{
 			if (wrapper != null) {
-				Stetic.Wrapper.ActionPaletteItem it = new Stetic.Wrapper.ActionPaletteItem (Gtk.UIManagerItemType.Menuitem, null, (Wrapper.Action) wrapper);
+				Wrapper.ActionPaletteItem it = new Wrapper.ActionPaletteItem (Gtk.UIManagerItemType.Menuitem, null, (Wrapper.Action) wrapper);
 				DND.Drag (source, ctx, it);
 			}
 			else if (callback != null) {

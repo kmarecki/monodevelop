@@ -7,7 +7,9 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Messaging;
 using System.Collections;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class GuiDispatchServerSink: IServerChannelSink, IChannelSinkBase
 	{

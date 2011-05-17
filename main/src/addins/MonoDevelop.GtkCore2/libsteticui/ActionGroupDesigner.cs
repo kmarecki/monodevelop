@@ -1,7 +1,10 @@
 
 using System;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class ActionGroupDesigner: Designer
 	{

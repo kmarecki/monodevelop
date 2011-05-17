@@ -4,15 +4,18 @@ using System;
 using System.Collections;
 using System.Reflection;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic {
 
 	internal class PropertyGrid : Gtk.VBox {
 
 		Hashtable cachedGroups = new Hashtable ();
 
-		Stetic.Wrapper.Widget selection;
-		Stetic.Wrapper.Widget newSelection;
-		Stetic.Wrapper.Container.ContainerChild packingSelection;
+		Wrapper.Widget selection;
+		Wrapper.Widget newSelection;
+		Wrapper.Container.ContainerChild packingSelection;
 		
 		PropertyGridHeader header;
 		Gtk.Widget noSelection;
@@ -30,7 +33,7 @@ namespace Stetic {
 			PackStart (lab, false, false, 0);
 			noSelection = lab;
 			
-			Stetic.Registry.RegistryChanging += new EventHandler (OnRegistryChanging);
+			Registry.RegistryChanging += new EventHandler (OnRegistryChanging);
 		}
 		
 		public PropertyGrid (ProjectBackend project): this ()
@@ -111,7 +114,7 @@ namespace Stetic {
 			header.AttachObject (selection.Wrapped);
 			AppendItemGroups (klass, selection.Wrapped);
 
-			packingSelection = Stetic.Wrapper.Container.ChildWrapper (selection);
+			packingSelection = Wrapper.Container.ChildWrapper (selection);
 			if (packingSelection != null) {
 				klass = packingSelection.ClassDescriptor;
 				if (klass.ItemGroups.Count > 0) {

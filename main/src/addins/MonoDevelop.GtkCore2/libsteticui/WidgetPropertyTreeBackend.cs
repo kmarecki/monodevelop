@@ -1,18 +1,21 @@
 
 using System;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class WidgetPropertyTreeBackend: PropertyTree, IObjectViewer
 	{
 		ProjectBackend project;
-		Stetic.ObjectWrapper selection;
-		Stetic.ObjectWrapper newSelection;
-		Stetic.Wrapper.Container.ContainerChild packingSelection;
+		ObjectWrapper selection;
+		ObjectWrapper newSelection;
+		Wrapper.Container.ContainerChild packingSelection;
 		
 		public WidgetPropertyTreeBackend ()
 		{
-			Stetic.Registry.RegistryChanging += new EventHandler (OnRegistryChanging);
+			Registry.RegistryChanging += new EventHandler (OnRegistryChanging);
 		}
 		
 		public ProjectBackend ProjectBackend {
@@ -90,7 +93,7 @@ namespace Stetic
 			AddProperties (selection.ClassDescriptor.ItemGroups, selection.Wrapped, project.TargetGtkVersion);
 			
 			if (selWidget != null) {
-				packingSelection = Stetic.Wrapper.Container.ChildWrapper (selWidget);
+				packingSelection = Wrapper.Container.ChildWrapper (selWidget);
 				if (packingSelection != null) {
 					ClassDescriptor childklass = packingSelection.ClassDescriptor;
 					if (childklass.ItemGroups.Count > 0) {

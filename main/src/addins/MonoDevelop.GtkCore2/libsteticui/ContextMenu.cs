@@ -4,8 +4,11 @@ using System.Collections;
 using System.Reflection;
 using Mono.Unix;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
 
+namespace MonoDevelop.GtkCore2.Stetic 
+{
 	class ContextMenu : Gtk.Menu {
 
 		Gtk.Widget widget;
@@ -26,12 +29,12 @@ namespace Stetic {
 			item.Sensitive = false;
 			Add (item);
 
-			BuildContextMenu (Stetic.Wrapper.Container.LookupParent (ph), true, ph);
+			BuildContextMenu (MonoDevelop.GtkCore2.Designer.Wrapper.Container.LookupParent (ph), true, ph);
 		}
 
-		public ContextMenu (Stetic.Wrapper.Widget wrapper) : this (wrapper, wrapper.Wrapped) {}
+		public ContextMenu (MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper) : this (wrapper, wrapper.Wrapped) {}
 
-		public ContextMenu (Stetic.Wrapper.Widget wrapper, Gtk.Widget context)
+		public ContextMenu (MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper, Gtk.Widget context)
 		{
 			MenuItem item;
 
@@ -69,7 +72,7 @@ namespace Stetic {
 			BuildContextMenu (wrapper.ParentWrapper, widget == context, context);
 		}
 
-		void BuildContextMenu (Stetic.Wrapper.Widget parentWrapper, bool top, Widget context)
+		void BuildContextMenu (MonoDevelop.GtkCore2.Designer.Wrapper.Widget parentWrapper, bool top, Widget context)
 		{
 			MenuItem item;
 
@@ -120,7 +123,7 @@ namespace Stetic {
 
 		void DoSelect (object obj, EventArgs args)
 		{
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (widget);
+			MonoDevelop.GtkCore2.Designer.Wrapper.Widget wrapper = MonoDevelop.GtkCore2.Designer.Wrapper.Widget.Lookup (widget);
 			if (wrapper != null)
 				wrapper.Select ();
 		}
@@ -156,7 +159,7 @@ namespace Stetic {
 			item = new ImageMenuItem ();
 			item.Add (label);
 
-			Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (widget);
+			Wrapper.Widget wrapper = Wrapper.Widget.Lookup (widget);
 			
 			if (wrapper != null) {
 				ClassDescriptor klass = wrapper.ClassDescriptor;

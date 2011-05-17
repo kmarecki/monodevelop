@@ -4,11 +4,13 @@ using System.Xml;
 using System.Reflection;
 using Mono.Cecil;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
-	class CecilSignalDescriptor: Stetic.SignalDescriptor
+	class CecilSignalDescriptor: SignalDescriptor
 	{
-		public CecilSignalDescriptor (CecilWidgetLibrary lib, XmlElement elem, Stetic.ItemGroup group, Stetic.ClassDescriptor klass, EventDefinition sinfo) : base (elem, group, klass)
+		public CecilSignalDescriptor (CecilWidgetLibrary lib, XmlElement elem, ItemGroup group, ClassDescriptor klass, EventDefinition sinfo) : base (elem, group, klass)
 		{
 			if (sinfo != null) {
 				string handler = sinfo.EventType.FullName;

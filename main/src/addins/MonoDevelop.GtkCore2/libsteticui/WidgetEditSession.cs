@@ -34,14 +34,18 @@ using System.Collections;
 using System.CodeDom;
 using Mono.Unix;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic 
+{
     
 	internal class WidgetEditSession: MarshalByRefObject, IDisposable
 	{
 		string sourceWidget;
 		Stetic.ProjectBackend project;
 		
-		Stetic.Wrapper.Container rootWidget;
+		Wrapper.Container rootWidget;
 		Stetic.WidgetDesignerBackend widget;
 		Gtk.VBox designer;
 		Gtk.Plug plug;
@@ -54,7 +58,7 @@ namespace Stetic {
 		UndoQueue undoQueue;
 		
 		public event EventHandler RootWidgetChanged;
-		public event Stetic.Wrapper.WidgetEventHandler SelectionChanged;
+		public event Wrapper.WidgetEventHandler SelectionChanged;
 		
 		public WidgetEditSession (ProjectBackend sourceProject, WidgetDesignerFrontend frontend, string windowName)
 		{
@@ -73,7 +77,7 @@ namespace Stetic {
 			this.project.Changed += new ProjectChangedEventHandler (OnChanged);
 			this.project.ProjectReloaded += new EventHandler (OnProjectReloaded);
 			this.project.ProjectReloading += new EventHandler (OnProjectReloading);
-//			this.project.WidgetMemberNameChanged += new Stetic.Wrapper.WidgetNameChangedHandler (OnWidgetNameChanged);
+//			this.project.WidgetMemberNameChanged += new Wrapper.WidgetNameChangedHandler (OnWidgetNameChanged);
 		}
 		
 		public bool AllowWidgetBinding {
@@ -85,11 +89,11 @@ namespace Stetic {
 			}
 		}
 		
-		public Stetic.Wrapper.Widget GladeWidget {
+		public Wrapper.Widget GladeWidget {
 			get { return rootWidget; }
 		}
 		
-		public Stetic.Wrapper.Container RootWidget {
+		public Wrapper.Container RootWidget {
 			get { return (Wrapper.Container) Component.GetSafeReference (rootWidget); }
 		}
 		
@@ -152,7 +156,7 @@ namespace Stetic {
 			project.Changed -= new ProjectChangedEventHandler (OnChanged);
 			project.ProjectReloaded -= OnProjectReloaded;
 			project.ProjectReloading -= OnProjectReloading;
-//			project.WidgetMemberNameChanged -= new Stetic.Wrapper.WidgetNameChangedHandler (OnWidgetNameChanged);
+//			project.WidgetMemberNameChanged -= new Wrapper.WidgetNameChangedHandler (OnWidgetNameChanged);
 			
 			if (plug != null)
 				plug.Destroy ();
@@ -224,7 +228,7 @@ namespace Stetic {
 			Gtk.Widget topWidget = project.GetWidget (sourceWidget);
 			
 			if (topWidget != null) {
-				rootWidget = Stetic.Wrapper.Container.Lookup (topWidget);
+				rootWidget = Wrapper.Container.Lookup (topWidget);
 				undoManager.RootObject = rootWidget;
 				if (rootWidget != null) {
 					Gtk.Widget oldWidget = designer;
@@ -288,7 +292,7 @@ namespace Stetic {
 			if (frontend != null) {
 				bool canCut, canCopy, canPaste, canDelete;
 				ObjectWrapper obj = ObjectWrapper.Lookup (widget.Selection);
-				Stetic.Wrapper.Widget wrapper = obj as Stetic.Wrapper.Widget;
+				Wrapper.Widget wrapper = obj as Wrapper.Widget;
 				IEditableObject editable = widget.Selection as IEditableObject;
 				if (editable == null)
 					editable = obj as IEditableObject;
@@ -304,7 +308,7 @@ namespace Stetic {
 				
 				frontend.NotifySelectionChanged (Component.GetSafeReference (obj), canCut, canCopy, canPaste, canDelete);
 				if (SelectionChanged != null)
-					SelectionChanged (this, new Stetic.Wrapper.WidgetEventArgs (wrapper));
+					SelectionChanged (this, new Wrapper.WidgetEventArgs (wrapper));
 			}
 		}
 		

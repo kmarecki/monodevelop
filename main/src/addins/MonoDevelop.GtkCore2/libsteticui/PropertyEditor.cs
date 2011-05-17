@@ -3,7 +3,10 @@ using System;
 using System.Collections;
 using System.Reflection;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
+{
 
 	class PropertyEditor : VBox
 	{

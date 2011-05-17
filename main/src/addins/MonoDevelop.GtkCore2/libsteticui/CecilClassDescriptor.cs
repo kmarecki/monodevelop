@@ -5,9 +5,12 @@ using System.Xml;
 using System.Reflection;
 using Mono.Cecil;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
-	internal class CecilClassDescriptor: Stetic.ClassDescriptor
+	internal class CecilClassDescriptor: ClassDescriptor
 	{
 		string wrappedTypeName;
 		ClassDescriptor typeClassDescriptor;
@@ -85,7 +88,7 @@ namespace Stetic
 			get { return canGenerateCode; }
 		}
 		
-		public override object CreateInstance (Stetic.IProject proj)
+		public override object CreateInstance (IProject proj)
 		{
 			Gtk.Widget res;
 			
@@ -94,7 +97,7 @@ namespace Stetic
 				res.ShowAll ();
 			}
 			else if (steticDefinition != null) {
-				Gtk.Container w = Stetic.WidgetUtils.ImportWidget (proj, steticDefinition) as Gtk.Container;
+				Gtk.Container w = WidgetUtils.ImportWidget (proj, steticDefinition) as Gtk.Container;
 				MakeChildrenUnselectable (w);
 				res = w;
 			}
@@ -103,9 +106,9 @@ namespace Stetic
 				
 				// If it is a custom widget and there is no stetic project for it, just
 				// show it as a regular custom widget.
-				Stetic.CustomWidget custom = res as Stetic.CustomWidget;
+				var custom = res as CustomWidget;
 				if (custom != null) {
-					Stetic.Custom c = new Stetic.Custom ();
+					var c = new Custom ();
 					// Give it some default size
 					c.WidthRequest = 20;
 					c.HeightRequest = 20;
@@ -119,12 +122,12 @@ namespace Stetic
 			return res;
 		}
 		
-		public override Stetic.ObjectWrapper CreateWrapper ()
+		public override ObjectWrapper CreateWrapper ()
 		{
 			return wrapperClassDescriptor.CreateWrapper ();
 		}
 		
-		protected override Stetic.ItemDescriptor CreateItemDescriptor (XmlElement elem, Stetic.ItemGroup group)
+		protected override ItemDescriptor CreateItemDescriptor (XmlElement elem, ItemGroup group)
 		{
 			string mname = elem.GetAttribute ("name");
 			if (elem.Name == "property") {
@@ -226,13 +229,13 @@ namespace Stetic
 		{
 			// Remove the registered signals, since those signals are bound
 			// to the custom widget class, not the widget container class.
-			Stetic.Wrapper.Widget ww = Stetic.Wrapper.Widget.Lookup (w);
+			Wrapper.Widget ww = Wrapper.Widget.Lookup (w);
 			if (ww == null)
 				return;
 			ww.Signals.Clear ();
 			
 			foreach (Gtk.Widget child in (Gtk.Container)w) {
-				Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (child);
+				Wrapper.Widget wrapper = Wrapper.Widget.Lookup (child);
 				if (wrapper != null) {
 					wrapper.Signals.Clear ();
 					wrapper.Unselectable = true;
@@ -277,7 +280,7 @@ namespace Stetic
 		
 		Gtk.Widget CreateFakeWidget (string typeName)
 		{
-			Stetic.Custom c = new Stetic.Custom ();
+			var c = new Custom ();
 			// Give it some default size
 			c.WidthRequest = 20;
 			c.HeightRequest = 20;
@@ -341,7 +344,7 @@ namespace Stetic
 				box.Add (c);
 				return box;
 			} else {
-				Stetic.CustomWidget custom = new Stetic.CustomWidget ();
+				var custom = new CustomWidget ();
 				if (custom.Child != null)
 					custom.Remove (custom.Child);
 				custom.Add (c);
@@ -350,7 +353,7 @@ namespace Stetic
 		}
 	}
 	
-	class CustomControlWrapper: Stetic.Wrapper.Container
+	class CustomControlWrapper: MonoDevelop.GtkCore2.Designer.Wrapper.Container
 	{
 		protected override bool AllowPlaceholders {
 			get {
@@ -359,7 +362,7 @@ namespace Stetic
 		}
 	}
 	
-	class ClassDescriptorWrapper: Stetic.ClassDescriptor
+	class ClassDescriptorWrapper: ClassDescriptor
 	{
 		ClassDescriptor wrapped;
 		
@@ -378,10 +381,10 @@ namespace Stetic
 			get { return wrapped.Icon; }
 		}
 		
-		public override object CreateInstance (Stetic.IProject proj)
+		public override object CreateInstance (IProject proj)
 		{
 			CustomWidget custom = new CustomWidget ();
-			Stetic.Custom c = new Stetic.Custom ();
+			var c = new Custom ();
 			// Give it some default size
 			c.WidthRequest = 20;
 			c.HeightRequest = 20;
@@ -389,7 +392,7 @@ namespace Stetic
 			return c;
 		}
 		
-		public override Stetic.ObjectWrapper CreateWrapper ()
+		public override ObjectWrapper CreateWrapper ()
 		{
 			return new Wrapper.Container ();
 		}

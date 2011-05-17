@@ -6,8 +6,10 @@ using System.Runtime.InteropServices;
 using Mono.Unix;
 
 using Gtk;
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Stetic {
 
 	internal static class GladeFiles {
 
@@ -26,7 +28,7 @@ namespace Stetic {
 
 			ObjectReader reader = new ObjectReader (project, FileFormat.Glade);
 			foreach (XmlElement toplevel in node.SelectNodes ("widget")) {
-				Wrapper.Container wrapper = Stetic.ObjectWrapper.ReadObject (reader, toplevel, null) as Wrapper.Container;
+				Wrapper.Container wrapper = ObjectWrapper.ReadObject (reader, toplevel, null) as Wrapper.Container;
 				if (wrapper != null)
 					project.AddWidget ((Gtk.Widget)wrapper.Wrapped);
 			}
@@ -42,7 +44,7 @@ namespace Stetic {
 
 			ObjectWriter owriter = new ObjectWriter (doc, FileFormat.Glade);
 			foreach (Widget w in project.Toplevels) {
-				Stetic.Wrapper.Container wrapper = Stetic.Wrapper.Container.Lookup (w);
+				Wrapper.Container wrapper = Wrapper.Container.Lookup (w);
 				if (wrapper == null)
 					continue;
 

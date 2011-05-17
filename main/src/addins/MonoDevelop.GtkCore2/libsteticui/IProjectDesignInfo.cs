@@ -1,10 +1,12 @@
 using System;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	//Provides access to informations managed by ide
 	public interface IProjectDesignInfo
 	{
+		string ProjectName { get; }
+		
 		//Returns component source file for given component
 		string GetComponentFile (string componentName);
 		bool HasComponentFile (string componentFile);

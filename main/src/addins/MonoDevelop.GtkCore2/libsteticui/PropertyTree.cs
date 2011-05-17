@@ -5,7 +5,9 @@ using Gtk;
 using Gdk;
 using Mono.Unix;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class PropertyTree: Gtk.ScrolledWindow
 	{

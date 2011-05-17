@@ -33,8 +33,9 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Xml;
 using Mono.Cecil;
+using MonoDevelop.GtkCore2.Designer;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class CecilWidgetLibrary: WidgetLibrary
 	{
@@ -142,12 +143,12 @@ namespace Stetic
 			string name = element.GetAttribute ("type");
 			
 			TypeDefinition cls = null;
-			Stetic.ClassDescriptor typeClassDescriptor = null;
+			ClassDescriptor typeClassDescriptor = null;
 			string tname;
 			
 			if (element.HasAttribute ("baseClassType")) {
 				tname = element.GetAttribute ("baseClassType");
-				typeClassDescriptor = Stetic.Registry.LookupClassByName (tname);
+				typeClassDescriptor = Registry.LookupClassByName (tname);
 			} else {
 				cls = assembly.MainModule.GetType (name);
 				if (cls != null) {
@@ -181,11 +182,11 @@ namespace Stetic
 			return cd;
 		}
 		
-		Stetic.ClassDescriptor FindType (AssemblyDefinition asm, TypeDefinition cls)
+		ClassDescriptor FindType (AssemblyDefinition asm, TypeDefinition cls)
 		{
 			if (cls.BaseType == null)
 				return null;
-			Stetic.ClassDescriptor klass = Stetic.Registry.LookupClassByName (cls.BaseType.FullName);
+			ClassDescriptor klass = Registry.LookupClassByName (cls.BaseType.FullName);
 			if (klass != null) return klass;
 			
 			TypeDefinition bcls = FindTypeDefinition (cls.BaseType.FullName);

@@ -5,7 +5,10 @@ using System.Collections;
 using System.Reflection;
 using Mono.Unix;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic {
 
 	internal class PaletteBackend : Gtk.ScrolledWindow, IComparer {
 
@@ -91,7 +94,7 @@ namespace Stetic {
 			LoadWidgets (project);
 		}
 		
-		void OnSelectionChanged (object ob, Stetic.Wrapper.WidgetEventArgs args)
+		void OnSelectionChanged (object ob, MonoDevelop.GtkCore2.Designer.Wrapper.WidgetEventArgs args)
 		{
 			UpdateSelection (args.WidgetWrapper);
 		}
@@ -311,20 +314,20 @@ namespace Stetic {
 		
 		public void Fill ()
 		{
-			foreach (Stetic.Wrapper.Action action in group.Actions) {
+			foreach (Wrapper.Action action in group.Actions) {
 				Gdk.Pixbuf icon = action.RenderIcon (Gtk.IconSize.Menu);
 				if (icon == null) icon = ActionComponent.DefaultActionIcon;
-				Stetic.Wrapper.ActionPaletteItem it = new Stetic.Wrapper.ActionPaletteItem (Gtk.UIManagerItemType.Menuitem, null, action);
+				Wrapper.ActionPaletteItem it = new Wrapper.ActionPaletteItem (Gtk.UIManagerItemType.Menuitem, null, action);
 				Append (new InstanceWidgetFactory (action.MenuLabel, icon, it));
 			}
 		}
 		
 		void OnActionGroupChanged (object s, EventArgs args)
 		{
-			SetName (((Stetic.Wrapper.ActionGroup)s).Name);
+			SetName (((Wrapper.ActionGroup)s).Name);
 		}
 		
-		void OnActionGroupChanged (object s, Stetic.Wrapper.ActionEventArgs args)
+		void OnActionGroupChanged (object s, MonoDevelop.GtkCore2.Designer.Wrapper.ActionEventArgs args)
 		{
 			Clear ();
 			Fill ();
@@ -350,9 +353,9 @@ namespace Stetic {
 
 	class ActionGroupBox: Gtk.VBox
 	{
-		Stetic.Wrapper.ActionGroupCollection groups;
+		MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroupCollection groups;
 		
-		public void SetActionGroups (Stetic.Wrapper.ActionGroupCollection groups)
+		public void SetActionGroups (MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroupCollection groups)
 		{
 			if (this.groups != null) {
 				this.groups.ActionGroupAdded -= OnGroupAdded;
@@ -381,7 +384,7 @@ namespace Stetic {
 			}
 			
 			if (groups != null) {
-				foreach (Stetic.Wrapper.ActionGroup group in groups) {
+				foreach (Wrapper.ActionGroup group in groups) {
 					ActionPaletteGroup pg = new ActionPaletteGroup (group.Name, group);
 					PackStart (pg, false, false, 0);
 				}
@@ -389,14 +392,14 @@ namespace Stetic {
 			ShowAll ();
 		}
 		
-		void OnGroupAdded (object s, Stetic.Wrapper.ActionGroupEventArgs args)
+		void OnGroupAdded (object s, MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroupEventArgs args)
 		{
 			ActionPaletteGroup pg = new ActionPaletteGroup (args.ActionGroup.Name, args.ActionGroup);
 			pg.ShowAll ();
 			PackStart (pg, false, false, 0);
 		}
 		
-		void OnGroupRemoved (object s, Stetic.Wrapper.ActionGroupEventArgs args)
+		void OnGroupRemoved (object s, MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroupEventArgs args)
 		{
 			foreach (ActionPaletteGroup grp in Children) {
 				if (grp.Group == args.ActionGroup) {

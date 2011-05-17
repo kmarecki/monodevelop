@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 
-namespace Stetic
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class WidgetComponent: Component
 	{

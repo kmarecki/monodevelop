@@ -33,9 +33,13 @@ using System.Reflection;
 using Gtk;
 using Gdk;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
-	internal class WidgetDesignerBackend: ScrolledWindow
+	internal class WidgetDesignerBackend: Gtk.ScrolledWindow
 	{
 		ObjectWrapper wrapper;
 		Gtk.Widget preview;
@@ -170,7 +174,7 @@ namespace Stetic
 		
 		void OnResized (object s, Gtk.SizeAllocatedArgs a)
 		{
-			Stetic.Wrapper.Container cont = wrapper as Stetic.Wrapper.Container;
+			Wrapper.Container cont = wrapper as Wrapper.Container;
 			if (cont != null) {
 				if (cont.DesignHeight != DesignHeight)
 					cont.DesignHeight = DesignHeight;
@@ -199,7 +203,7 @@ namespace Stetic
 		int difX, difY;
 		bool resizingX;
 		bool resizingY;
-		Fixed fixd;
+		Gtk.Fixed fixd;
 		Gtk.Container container;
 		
 		Cursor cursorX = new Cursor (CursorType.RightSide);
@@ -224,7 +228,7 @@ namespace Stetic
 		
 		public ResizableFixed ()
 		{
-			fixd = new Fixed ();
+			fixd = new Gtk.Fixed ();
 			Add (fixd);
 			this.CanFocus = true;
 			this.Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | EventMask.PointerMotionMask | EventMask.KeyPressMask;
@@ -571,7 +575,7 @@ namespace Stetic
 			rectArea.Inflate (selectionBorder, selectionBorder);
 			
 			if (rectArea.Contains ((int) ev.X, (int) ev.Y)) {
-				Stetic.Wrapper.Widget gw = Stetic.Wrapper.Widget.Lookup (container);
+				Wrapper.Widget gw = Wrapper.Widget.Lookup (container);
 				if (gw != null)
 					gw.Select ();
 				else
@@ -601,7 +605,7 @@ namespace Stetic
 					}
 				}
 			} else {
-				Stetic.Wrapper.Widget gw = Stetic.Wrapper.Widget.Lookup (container);
+				Wrapper.Widget gw = Wrapper.Widget.Lookup (container);
 				if (gw != null)
 					gw.Project.Selection = null;
 			}

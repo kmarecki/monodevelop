@@ -1,5 +1,5 @@
 
-namespace Stetic.Metacity
+namespace MonoDevelop.GtkCore2.Stetic.Metacity
 {
 	using System;
 	using System.Runtime.InteropServices;

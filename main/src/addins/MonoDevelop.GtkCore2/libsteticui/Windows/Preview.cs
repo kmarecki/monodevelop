@@ -4,7 +4,9 @@ using System.Text;
 using Gtk;
 using Gdk;
 
-namespace Stetic.Windows
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic.Windows
 {
 	class Preview: Bin
 	{

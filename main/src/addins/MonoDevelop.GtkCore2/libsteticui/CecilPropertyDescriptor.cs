@@ -3,16 +3,18 @@ using System.Collections;
 using System.Xml;
 using Mono.Cecil;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
-	class CecilPropertyDescriptor: Stetic.PropertyDescriptor
+	class CecilPropertyDescriptor: PropertyDescriptor
 	{
 		string name;
 		Type type;
 		object initialValue;
 		bool canWrite;
 		
-		public CecilPropertyDescriptor (CecilWidgetLibrary lib, XmlElement elem, Stetic.ItemGroup group, Stetic.ClassDescriptor klass, PropertyDefinition pinfo): base (elem, group, klass)
+		public CecilPropertyDescriptor (CecilWidgetLibrary lib, XmlElement elem, ItemGroup group, ClassDescriptor klass, PropertyDefinition pinfo): base (elem, group, klass)
 		{
 			string tname;
 			
@@ -29,7 +31,7 @@ namespace Stetic
 			
 			Load (elem);
 			
-			type = Stetic.Registry.GetType (tname, false);
+			type = Registry.GetType (tname, false);
 			
 			if (type == null) {
 				Console.WriteLine ("Could not find type: " + tname);
@@ -46,7 +48,7 @@ namespace Stetic
 				SaveCecilXml (elem);
 		}
 		
-		public CecilPropertyDescriptor (XmlElement elem, Stetic.ItemGroup group, Stetic.ClassDescriptor klass, PropertyDescriptor prop): base (elem, group, klass)
+		public CecilPropertyDescriptor (XmlElement elem, ItemGroup group, ClassDescriptor klass, PropertyDescriptor prop): base (elem, group, klass)
 		{
 			this.name = prop.Name;
 			this.type = prop.PropertyType;
@@ -86,7 +88,7 @@ namespace Stetic
 		// Gets the value of the property on @obj
 		public override object GetValue (object obj)
 		{
-			Stetic.ObjectWrapper wrapper = (Stetic.ObjectWrapper) Stetic.ObjectWrapper.Lookup (obj);
+			var wrapper = (ObjectWrapper) ObjectWrapper.Lookup (obj);
 			Hashtable props = (Hashtable) wrapper.ExtendedData [typeof(CecilPropertyDescriptor)];
 			object val = props != null ? props [name] : null;
 			if (val == null && initialValue != null)
@@ -103,7 +105,7 @@ namespace Stetic
 		// Sets the value of the property on @obj
 		public override void SetValue (object obj, object value)
 		{
-			Stetic.ObjectWrapper wrapper = (Stetic.ObjectWrapper) Stetic.ObjectWrapper.Lookup (obj);
+			var wrapper = (ObjectWrapper) ObjectWrapper.Lookup (obj);
 			Hashtable props = (Hashtable) wrapper.ExtendedData [typeof(CecilPropertyDescriptor)];
 			if (props == null) {
 				props = new Hashtable ();

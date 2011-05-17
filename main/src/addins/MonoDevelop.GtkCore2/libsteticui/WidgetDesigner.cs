@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public delegate void ComponentDropCallback ();
 		
@@ -77,7 +79,7 @@ namespace Stetic
 		
 		public void BeginComponentDrag (ComponentType type, Gtk.Widget source, Gdk.DragContext ctx)
 		{
-			Stetic.ObjectWrapper wrapper = type.Action != null ? (Stetic.ObjectWrapper) type.Action.Backend : null;
+			ObjectWrapper wrapper = type.Action != null ? (ObjectWrapper) type.Action.Backend : null;
 			app.Backend.BeginComponentDrag (project.ProjectBackend, type.Description, type.ClassName, wrapper, source, ctx, null);
 			
 		}

@@ -4,7 +4,9 @@ using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class UndoQueue: MarshalByRefObject
 	{

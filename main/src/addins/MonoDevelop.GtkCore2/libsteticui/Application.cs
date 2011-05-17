@@ -14,7 +14,11 @@ using System.Diagnostics;
 using Mono.Remoting.Channels.Unix;
 using Mono.Cecil;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using MonoDevelop.GtkCore2.Designer.Editor;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public enum IsolationMode
 	{
@@ -211,7 +215,7 @@ namespace Stetic
 			set { Backend.MimeResolver = value; }
 		}
 		
-		public Editor.ShowUrlDelegate ShowUrl {
+		public ShowUrlDelegate ShowUrl {
 			set { Backend.ShowUrl = value; }
 		}
 		

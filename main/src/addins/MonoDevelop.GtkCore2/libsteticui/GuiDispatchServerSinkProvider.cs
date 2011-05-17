@@ -3,7 +3,7 @@ using System;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class GuiDispatchServerSinkProvider: IServerFormatterSinkProvider, IServerChannelSinkProvider
 	{

@@ -6,7 +6,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class Project: MarshalByRefObject
 	{
@@ -61,6 +64,7 @@ namespace Stetic
 			}
 			
 			DesignInfo = info;
+			MonoDevelop.Core.LoggingService.LogDebug ("Stetic.Project constructed : {0}", info.ProjectName);
 		}
 		
 		internal IProjectDesignInfo DesignInfo { get; private set; }
@@ -127,7 +131,7 @@ namespace Stetic
 			}
 		}
 		
-		public Stetic.ProjectIconFactory IconFactory {
+		public ProjectIconFactory IconFactory {
 			get { return ProjectBackend.IconFactory; }
 			set { backend.IconFactory = value; }
 		}
@@ -428,7 +432,7 @@ namespace Stetic
 		public void RemoveActionGroup (ActionGroupInfo group)
 		{
 			ActionGroupComponent ac = (ActionGroupComponent) group.Component;
-			ProjectBackend.RemoveActionGroup ((Stetic.Wrapper.ActionGroup) ac.Backend);
+			ProjectBackend.RemoveActionGroup ((Wrapper.ActionGroup) ac.Backend);
 		}
 		
 		internal ActionGroupComponent[] GetActionGroups ()

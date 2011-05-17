@@ -8,7 +8,7 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class ApplicationBackendController: MarshalByRefObject
 	{

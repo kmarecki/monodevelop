@@ -4,7 +4,10 @@ using System;
 using System.Collections;
 using System.Reflection;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
+{
 
 	// This is the base class for palette items. Implements the basic
 	// functionality for showing the icon and label of the item.

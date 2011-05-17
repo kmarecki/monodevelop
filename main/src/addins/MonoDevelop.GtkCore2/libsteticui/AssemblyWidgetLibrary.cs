@@ -4,7 +4,9 @@ using System.Reflection;
 using System.Xml;
 using System.IO;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class AssemblyWidgetLibrary: WidgetLibrary
 	{

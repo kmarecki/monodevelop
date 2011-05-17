@@ -7,7 +7,10 @@ using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal static class CodeGeneratorPartialClass
 	{
@@ -18,7 +21,7 @@ namespace Stetic
 			
 				// Generate top levels
 				foreach (Gtk.Widget w in gp.Toplevels) {
-					Stetic.Wrapper.Widget wwidget = Stetic.Wrapper.Widget.Lookup (w);
+					Wrapper.Widget wwidget = Wrapper.Widget.Lookup (w);
 					string topLevelName = wwidget.Name;
 					if (gp.ComponentNeedsCodeGeneration (topLevelName)) {
 						//designer file for widget could be changed beyond stetic process 
@@ -83,7 +86,7 @@ namespace Stetic
 			met.ReturnType = new CodeTypeReference (typeof(void));
 			met.Attributes = MemberAttributes.Family;
 			
-			Stetic.Wrapper.Widget wwidget = Stetic.Wrapper.Widget.Lookup (w);
+			Wrapper.Widget wwidget = Wrapper.Widget.Lookup (w);
 
 			if (options.GenerateEmptyBuildMethod) {
 				GenerateWrapperFields (type, wwidget);
@@ -106,7 +109,7 @@ namespace Stetic
 			if (!String.IsNullOrEmpty (wwidget.UIManagerName))
 				type.Members.Add (new CodeMemberField (new CodeTypeReference ("Gtk.UIManager", CodeTypeReferenceOptions.GlobalReference), wwidget.UIManagerName));
 
-			Stetic.WidgetMap map = Stetic.CodeGenerator.GenerateCreationCode (globalNs, type, w, new CodeThisReferenceExpression (), met.Statements, options, warnings);
+			WidgetMap map = CodeGenerator.GenerateCreationCode (globalNs, type, w, new CodeThisReferenceExpression (), met.Statements, options, warnings);
 			CodeGenerator.BindSignalHandlers (new CodeThisReferenceExpression (), wwidget, map, met.Statements, options);
 		}
 		
@@ -135,7 +138,7 @@ namespace Stetic
 			met.ReturnType = new CodeTypeReference (typeof(void));
 			met.Attributes = MemberAttributes.Public;
 			
-			Stetic.WidgetMap map = Stetic.CodeGenerator.GenerateCreationCode (globalNs, type, agroup, new CodeThisReferenceExpression (), met.Statements, options, warnings);
+			WidgetMap map = CodeGenerator.GenerateCreationCode (globalNs, type, agroup, new CodeThisReferenceExpression (), met.Statements, options, warnings);
 			
 			foreach (Wrapper.Action ac in agroup.Actions)
 				CodeGenerator.BindSignalHandlers (new CodeThisReferenceExpression (), ac, map, met.Statements, options);

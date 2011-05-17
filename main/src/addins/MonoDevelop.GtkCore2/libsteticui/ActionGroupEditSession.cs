@@ -3,7 +3,10 @@ using System;
 using System.Xml;
 using System.Collections;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class ActionGroupEditSession: MarshalByRefObject, IDisposable
 	{
@@ -19,8 +22,8 @@ namespace Stetic
 		bool designerRequested;
 		ActionGroupToolbar groupToolbar;
 			
-		Stetic.Wrapper.ActionGroup groupCopy;
-		Stetic.Wrapper.ActionGroup group;
+		Wrapper.ActionGroup groupCopy;
+		Wrapper.ActionGroup group;
 		Hashtable actionCopyMap = new Hashtable ();
 		
 		UndoRedoManager undoManager;
@@ -50,7 +53,7 @@ namespace Stetic
 				if (!autoCommitChanges)
 					throw new System.NotSupportedException ();
 				
-				Stetic.Wrapper.Container container = project.GetTopLevelWrapper (containerName, true);
+				Wrapper.Container container = project.GetTopLevelWrapper (containerName, true);
 				groupToolbar = new ActionGroupToolbar (frontend, container.LocalActionGroups);
 			}
 			
@@ -67,7 +70,7 @@ namespace Stetic
 			get { return groupCopy; }
 		}
 		
-		void Load (Stetic.Wrapper.ActionGroup group)
+		void Load (Wrapper.ActionGroup group)
 		{
 			if (autoCommitChanges) {
 				groupCopy = group;
@@ -75,16 +78,16 @@ namespace Stetic
 			else {
 				actionCopyMap.Clear ();
 					
-				groupCopy = new Stetic.Wrapper.ActionGroup ();
+				groupCopy = new Wrapper.ActionGroup ();
 				groupCopy.Name = group.Name;
 				
-				foreach (Stetic.Wrapper.Action action in group.Actions) {
-					Stetic.Wrapper.Action dupaction = action.Clone ();
+				foreach (Wrapper.Action action in group.Actions) {
+					Wrapper.Action dupaction = action.Clone ();
 					groupCopy.Actions.Add (dupaction);
 					actionCopyMap [dupaction] = action;
 				}
-				groupCopy.SignalAdded += new Stetic.SignalEventHandler (OnSignalAdded);
-				groupCopy.SignalChanged += new Stetic.SignalChangedEventHandler (OnSignalChanged);
+				groupCopy.SignalAdded += new SignalEventHandler (OnSignalAdded);
+				groupCopy.SignalChanged += new SignalChangedEventHandler (OnSignalChanged);
 			}
 		}
 		
@@ -96,8 +99,8 @@ namespace Stetic
 			if (group.Name != groupCopy.Name)
 				group.Name = groupCopy.Name;
 			
-			foreach (Stetic.Wrapper.Action actionCopy in groupCopy.Actions) {
-				Stetic.Wrapper.Action action = (Stetic.Wrapper.Action) actionCopyMap [actionCopy];
+			foreach (Wrapper.Action actionCopy in groupCopy.Actions) {
+				Wrapper.Action action = (Wrapper.Action) actionCopyMap [actionCopy];
 				if (action != null)
 					action.CopyFrom (actionCopy);
 				else {
@@ -108,13 +111,13 @@ namespace Stetic
 			}
 			
 			ArrayList todelete = new ArrayList ();
-			foreach (Stetic.Wrapper.Action actionCopy in actionCopyMap.Keys) {
+			foreach (Wrapper.Action actionCopy in actionCopyMap.Keys) {
 				if (!groupCopy.Actions.Contains (actionCopy))
 					todelete.Add (actionCopy);
 			}
 			
-			foreach (Stetic.Wrapper.Action actionCopy in todelete) {
-				Stetic.Wrapper.Action action = (Stetic.Wrapper.Action) actionCopyMap [actionCopy];
+			foreach (Wrapper.Action actionCopy in todelete) {
+				Wrapper.Action action = (Wrapper.Action) actionCopyMap [actionCopy];
 				group.Actions.Remove (action);
 				actionCopyMap.Remove (actionCopy);
 			}
@@ -162,7 +165,7 @@ namespace Stetic
 					if (groupToEdit != null) {
 						groupToolbar.ActiveGroup = project.ActionGroups [groupToEdit];
 					} else {
-						Stetic.Wrapper.Container container = project.GetTopLevelWrapper (containerName, true);
+						Wrapper.Container container = project.GetTopLevelWrapper (containerName, true);
 						groupToolbar.ActionGroups = container.LocalActionGroups;
 					}
 				}
@@ -188,7 +191,7 @@ namespace Stetic
 			get {
 				if (groupToEdit != null)
 					return true;
-				Stetic.Wrapper.Container container = project.GetTopLevelWrapper (containerName, true);
+				Wrapper.Container container = project.GetTopLevelWrapper (containerName, true);
 				return container.LocalActionGroups.Count > 0;
 			}
 		}
@@ -322,7 +325,7 @@ namespace Stetic
 			if (data == null)
 				return;
 			
-			groupCopy = new Stetic.Wrapper.ActionGroup ();
+			groupCopy = new Wrapper.ActionGroup ();
 			groupCopy.Name = (string) data [0];
 			
 			XmlDocument doc = new XmlDocument ();
@@ -336,17 +339,17 @@ namespace Stetic
 				actionCopyMap [dupaction] = action;
 			}
 			
-			groupCopy.SignalAdded += new Stetic.SignalEventHandler (OnSignalAdded);
-			groupCopy.SignalChanged += new Stetic.SignalChangedEventHandler (OnSignalChanged);
+			groupCopy.SignalAdded += new SignalEventHandler (OnSignalAdded);
+			groupCopy.SignalChanged += new SignalChangedEventHandler (OnSignalChanged);
 		}
 		
-		void OnSignalAdded (object s, Stetic.SignalEventArgs a)
+		void OnSignalAdded (object s, SignalEventArgs a)
 		{
 			Wrapper.Action action = (Wrapper.Action) a.Wrapper;
 			frontend.NotifySignalAdded (action, action.Name, a.Signal);
 		}
 		
-		void OnSignalChanged (object s, Stetic.SignalChangedEventArgs a)
+		void OnSignalChanged (object s, SignalChangedEventArgs a)
 		{
 			Wrapper.Action action = (Wrapper.Action) a.Wrapper;
 			frontend.NotifySignalChanged (action, action.Name, a.OldSignal, a.Signal);

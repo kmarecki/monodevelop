@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Stetic.Windows
+namespace MonoDevelop.GtkCore2.Stetic.Windows
 {
 	class WindowsTheme
 	{

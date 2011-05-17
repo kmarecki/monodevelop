@@ -8,7 +8,11 @@ using System.Collections.Specialized;
 using System.CodeDom;
 using Mono.Unix;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
+using Editor = MonoDevelop.GtkCore2.Designer.Editor;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic {
 
 	internal class ProjectBackend : MarshalByRefObject, IProject, IDisposable 
 	{
@@ -22,10 +26,10 @@ namespace Stetic {
 		IResourceProvider resourceProvider;
 		
 		// Global action groups of the project
-		Stetic.Wrapper.ActionGroupCollection actionGroups;
+		MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroupCollection actionGroups;
 		bool ownedGlobalActionGroups = true;	// It may be false when reusing groups from another project
 		
-		Stetic.ProjectIconFactory iconFactory;
+		ProjectIconFactory iconFactory;
 		Project frontend;
 		ArrayList widgetLibraries;
 		ArrayList internalLibs;
@@ -38,7 +42,7 @@ namespace Stetic {
 		bool converting;
 		
 		// The action collection of the last selected widget
-		Stetic.Wrapper.ActionGroupCollection oldTopActionCollection;
+		Wrapper.ActionGroupCollection oldTopActionCollection;
 		
 		public event Wrapper.WidgetNameChangedHandler WidgetNameChanged;
 		public event Wrapper.WidgetEventHandler WidgetAdded;
@@ -63,7 +67,7 @@ namespace Stetic {
 			this.app = app;
 			topLevels = new List<WidgetData> ();
 			
-			ActionGroups = new Stetic.Wrapper.ActionGroupCollection ();
+			ActionGroups = new Wrapper.ActionGroupCollection ();
 
 			Registry.RegistryChanging += OnRegistryChanging;
 			Registry.RegistryChanged += OnRegistryChanged;
@@ -72,6 +76,7 @@ namespace Stetic {
 			widgetLibraries = new ArrayList ();
 			internalLibs = new ArrayList ();
 			modifiedTopLevels = new List<string> ();
+			MonoDevelop.Core.LoggingService.LogDebug ("Stetic.ProjectBackend constructed");
 		}
 		
 		public void Dispose ()
@@ -236,7 +241,7 @@ namespace Stetic {
 			set { resourceProvider = value; }
 		}
 		
-		public Stetic.Wrapper.ActionGroupCollection ActionGroups {
+		public Wrapper.ActionGroupCollection ActionGroups {
 			get { return actionGroups; }
 			set {
 				if (actionGroups != null) {
@@ -254,13 +259,13 @@ namespace Stetic {
 			}
 		}
 		
-		public void AttachActionGroups (Stetic.Wrapper.ActionGroupCollection groups)
+		public void AttachActionGroups (Wrapper.ActionGroupCollection groups)
 		{
 			ActionGroups = groups;
 			ownedGlobalActionGroups = false;
 		}
 		
-		public Stetic.ProjectIconFactory IconFactory {
+		public ProjectIconFactory IconFactory {
 			get { return iconFactory; }
 			set { iconFactory = value; }
 		}
@@ -273,7 +278,7 @@ namespace Stetic {
 		public void Close ()
 		{	
 			if (actionGroups != null && ownedGlobalActionGroups) {
-				foreach (Stetic.Wrapper.ActionGroup ag in actionGroups)
+				foreach (Wrapper.ActionGroup ag in actionGroups)
 					ag.Dispose ();
 				actionGroups.Clear ();
 			}
@@ -439,7 +444,7 @@ namespace Stetic {
 				try {
 					loading = true;
 					ObjectReader reader = new ObjectReader (this, FileFormat.Native);
-					Wrapper.Container wrapper = Stetic.ObjectWrapper.ReadObject (reader, data.XmlData, null) as Wrapper.Container;
+					Wrapper.Container wrapper = ObjectWrapper.ReadObject (reader, data.XmlData, null) as Wrapper.Container;
 					data.Widget = wrapper.Wrapped;
 					data.Widget.Destroyed += (s,e) => data.Widget = null;
 				} finally {
@@ -457,7 +462,7 @@ namespace Stetic {
 				WidgetData data = GetWidgetData (topLevelName);
 			
 				if (data != null) {
-					//Stetic.Wrapper.Widget ww = Stetic.Wrapper.Widget.Lookup (data.Widget);
+					//Wrapper.Widget ww = Wrapper.Widget.Lookup (data.Widget);
 					data.SetXmlData (topLevelName, topLevelElem);
 					GetWidget (data);
 					return true;
@@ -638,7 +643,7 @@ namespace Stetic {
 
 			foreach (WidgetData data in topLevels) {
 				if (data.Widget != null) {
-					Stetic.Wrapper.Container wrapper = Stetic.Wrapper.Container.Lookup (data.Widget);
+					Wrapper.Container wrapper = Wrapper.Container.Lookup (data.Widget);
 					if (wrapper == null)
 						continue;
 
@@ -669,7 +674,7 @@ namespace Stetic {
 		
 		public void EditIcons ()
 		{
-			using (Stetic.Editor.EditIconFactoryDialog dlg = new Stetic.Editor.EditIconFactoryDialog (null, this, this.IconFactory)) {
+			using (var dlg = new Editor.EditIconFactoryDialog (null, this, this.IconFactory)) {
 				dlg.Run ();
 			}
 		}
@@ -737,7 +742,7 @@ namespace Stetic {
 		{
 			XmlDocument doc = new XmlDocument ();
 			doc.LoadXml (template);
-			Gtk.Widget widget = Stetic.WidgetUtils.ImportWidget (this, doc.DocumentElement);
+			Gtk.Widget widget = WidgetUtils.ImportWidget (this, doc.DocumentElement);
 			AddWidget (widget);
 			
 			string name = widget.Name;
@@ -757,28 +762,28 @@ namespace Stetic {
 				modifiedTopLevels.Remove (name);
 		}
 		
-		public Stetic.Wrapper.ActionGroup AddNewActionGroup (string name)
+		public MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroup AddNewActionGroup (string name)
 		{
-			Stetic.Wrapper.ActionGroup group = new Stetic.Wrapper.ActionGroup ();
+			MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroup group = new Wrapper.ActionGroup ();
 			group.Name = name;
 			ActionGroups.Add (group);
 			this.modifiedTopLevels.Add (name);
 			return group;
 		}
 		
-		public Stetic.Wrapper.ActionGroup AddNewActionGroupFromTemplate (string template)
+		public MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroup AddNewActionGroupFromTemplate (string template)
 		{
 			XmlDocument doc = new XmlDocument ();
 			doc.LoadXml (template);
 			ObjectReader or = new ObjectReader (this, FileFormat.Native);
-			Stetic.Wrapper.ActionGroup group = new Stetic.Wrapper.ActionGroup ();
+			Wrapper.ActionGroup group = new Wrapper.ActionGroup ();
 			group.Read (or, doc.DocumentElement);
 			ActionGroups.Add (group);
 			this.modifiedTopLevels.Add (group.Name);
 			return group;
 		}
 		
-		public void RemoveActionGroup (Stetic.Wrapper.ActionGroup group)
+		public void RemoveActionGroup (MonoDevelop.GtkCore2.Designer.Wrapper.ActionGroup group)
 		{
 			ActionGroups.Remove (group);
 			string name = group.Name;
@@ -906,13 +911,13 @@ namespace Stetic {
 			topLevels.Add (new WidgetData (null, null, widget));
 			
 			if (!loading) {
-				Stetic.Wrapper.Widget ww = Stetic.Wrapper.Widget.Lookup (widget);
+				Wrapper.Widget ww = Wrapper.Widget.Lookup (widget);
 				
 				if (ww == null)
 					throw new InvalidOperationException ("Widget not wrapped");
 				if (frontend != null)
 					frontend.NotifyWidgetAdded (Component.GetSafeReference (ww), widget.Name, ww.ClassDescriptor.Name);
-				OnWidgetAdded (new Stetic.Wrapper.WidgetEventArgs (ww));
+				OnWidgetAdded (new Wrapper.WidgetEventArgs (ww));
 			}
 		}
 		
@@ -925,7 +930,7 @@ namespace Stetic {
 				ObjectChanged (this, args);
 		}
 		
-		void IProject.NotifyNameChanged (Stetic.Wrapper.WidgetNameChangedArgs args)
+		void IProject.NotifyNameChanged (MonoDevelop.GtkCore2.Designer.Wrapper.WidgetNameChangedArgs args)
 		{
 			if (loading)
 				return;
@@ -966,7 +971,7 @@ namespace Stetic {
 				WidgetContentsChanged (this, new Wrapper.WidgetEventArgs (w));
 		}
 		
-		void OnWidgetNameChanged (Stetic.Wrapper.WidgetNameChangedArgs args, bool isTopLevel)
+		void OnWidgetNameChanged (MonoDevelop.GtkCore2.Designer.Wrapper.WidgetNameChangedArgs args, bool isTopLevel)
 		{
 			if (frontend != null)
 				frontend.NotifyWidgetNameChanged (Component.GetSafeReference (args.WidgetWrapper), args.OldName, args.NewName, isTopLevel);
@@ -1060,9 +1065,9 @@ namespace Stetic {
 				
 				// FIXME: should there be an IsDestroyed property?
 				if (selection != null && selection.Handle != IntPtr.Zero) {
-					Stetic.Wrapper.Container parent = Stetic.Wrapper.Container.LookupParent (selection);
+					Wrapper.Container parent = Wrapper.Container.LookupParent (selection);
 					if (parent == null)
-						parent = Stetic.Wrapper.Container.Lookup (selection);
+						parent = Wrapper.Container.Lookup (selection);
 					if (parent != null)
 						parent.UnSelect (selection);
 				}
@@ -1070,9 +1075,9 @@ namespace Stetic {
 				selection = value;
 
 				if (selection != null && selection.Handle != IntPtr.Zero) {
-					Stetic.Wrapper.Container parent = Stetic.Wrapper.Container.LookupParent (selection);
+					Wrapper.Container parent = Wrapper.Container.LookupParent (selection);
 					if (parent == null)
-						parent = Stetic.Wrapper.Container.Lookup (selection);
+						parent = Wrapper.Container.Lookup (selection);
 					if (parent != null)
 						parent.Select (selection);
 					Wrapper.Widget w = Wrapper.Widget.Lookup (selection);
@@ -1094,7 +1099,7 @@ namespace Stetic {
 			}
 		}
 
-		public void PopupContextMenu (Stetic.Wrapper.Widget wrapper)
+		public void PopupContextMenu (Wrapper.Widget wrapper)
 		{
 			Gtk.Menu m = new ContextMenu (wrapper);
 			m.Popup ();
@@ -1155,7 +1160,7 @@ namespace Stetic {
 				ComponentTypesChanged (this, EventArgs.Empty);
 		}
 		
-		void OnGroupAdded (object s, Stetic.Wrapper.ActionGroupEventArgs args)
+		void OnGroupAdded (object s, Wrapper.ActionGroupEventArgs args)
 		{
 			args.ActionGroup.SignalAdded += OnSignalAdded;
 			args.ActionGroup.SignalRemoved += OnSignalRemoved;
@@ -1165,7 +1170,7 @@ namespace Stetic {
 			OnComponentTypesChanged (null, null);
 		}
 		
-		void OnGroupRemoved (object s, Stetic.Wrapper.ActionGroupEventArgs args)
+		void OnGroupRemoved (object s, Wrapper.ActionGroupEventArgs args)
 		{
 			args.ActionGroup.SignalAdded -= OnSignalAdded;
 			args.ActionGroup.SignalRemoved -= OnSignalRemoved;
@@ -1185,7 +1190,7 @@ namespace Stetic {
 				Changed (this, new ProjectChangedEventArgs (rootWidgetName));
 		}
 		
-		protected virtual void OnWidgetAdded (Stetic.Wrapper.WidgetEventArgs args)
+		protected virtual void OnWidgetAdded (Wrapper.WidgetEventArgs args)
 		{
 			NotifyChanged (args.WidgetWrapper.RootWrapperName);
 			if (WidgetAdded != null)

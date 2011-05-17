@@ -36,9 +36,13 @@ using System.IO;
 using System.Text;
 using Mono.Cecil;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
 
-	internal class AssemblyResolver : BaseAssemblyResolver {
+namespace MonoDevelop.GtkCore2.Stetic
+{
+
+	internal class AssemblyResolver : BaseAssemblyResolver 
+	{
 
 		Hashtable _assemblies;
 		ApplicationBackend app;

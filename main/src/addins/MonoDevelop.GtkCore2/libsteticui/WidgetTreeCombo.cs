@@ -2,15 +2,18 @@
 using System;
 using Gtk;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class WidgetTreeCombo: Button
 	{
 		Label label;
 		Image image;
-		Stetic.Wrapper.Widget rootWidget;
-		Stetic.IProject project;
-		Stetic.Wrapper.Widget selection;
+		Wrapper.Widget rootWidget;
+		IProject project;
+		Wrapper.Widget selection;
 		WidgetTreePopup popup;
 		
 		public WidgetTreeCombo ()
@@ -38,7 +41,7 @@ namespace Stetic
 		}
 
 		
-		public Stetic.Wrapper.Widget RootWidget {
+		public Wrapper.Widget RootWidget {
 			get { return rootWidget; }
 			set {
 				rootWidget = value;
@@ -49,7 +52,7 @@ namespace Stetic
 			}
 		}
 		
-		public void SetSelection (Stetic.Wrapper.Widget widget) 
+		public void SetSelection (Wrapper.Widget widget) 
 		{
 			selection = widget;
 			Update ();
@@ -101,7 +104,7 @@ namespace Stetic
 		void OnPopupActivated (object s, EventArgs a)
 		{
 			popup.Hide ();
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (popup.Selection);
+			Wrapper.Widget wrapper = Wrapper.Widget.Lookup (popup.Selection);
 			GLib.Timeout.Add (10, delegate {
 				wrapper.Select ();
 				return false;
@@ -114,11 +117,11 @@ namespace Stetic
 		TreeView tree;
 		TreeStore store;
 		Gtk.Widget selection;
-		Stetic.IProject project;
+		IProject project;
 		
 		public event EventHandler WidgetActivated;
 		
-		public WidgetTreePopup (Stetic.IProject project): base (WindowType.Popup)
+		public WidgetTreePopup (IProject project): base (WindowType.Popup)
 		{
 			this.project = project;
 			Gtk.Frame frame = new Frame ();
@@ -161,7 +164,7 @@ namespace Stetic
 		
 		public void Fill (TreeIter iter, Gtk.Widget widget)
 		{
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (widget);
+			Wrapper.Widget wrapper = Wrapper.Widget.Lookup (widget);
 			if (wrapper == null) return;
 			
 			if (!wrapper.Unselectable) {

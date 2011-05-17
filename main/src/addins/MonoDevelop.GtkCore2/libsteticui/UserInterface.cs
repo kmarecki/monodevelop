@@ -1,7 +1,10 @@
 
 using System;
 
-namespace Stetic
+using Editor = MonoDevelop.GtkCore2.Designer.Editor;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class UserInterface
 	{
@@ -11,7 +14,7 @@ namespace Stetic
 		
 		public static WidgetDesignerBackend CreateWidgetDesigner (Gtk.Container widget)
 		{
-			Stetic.Wrapper.Container wc = Stetic.Wrapper.Container.Lookup (widget);
+			Wrapper.Container wc = Wrapper.Container.Lookup (widget);
 			return CreateWidgetDesigner (widget, wc.DesignWidth, wc.DesignHeight);
 		}
 		

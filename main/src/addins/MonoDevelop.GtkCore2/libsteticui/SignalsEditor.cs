@@ -1,7 +1,9 @@
 
 using System;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class SignalsEditor: PluggableWidget
 	{

@@ -2,7 +2,7 @@ using Gtk;
 using System;
 using System.Collections;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Stetic {
 
 	internal class Grid : Gtk.Container {
 

@@ -4,17 +4,20 @@ using System.Collections;
 using Gtk;
 using Mono.Unix;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	
 	internal class WidgetActionBar: Gtk.Toolbar
 	{
 		ProjectBackend project;
-		Stetic.Wrapper.Widget rootWidget;
+		Wrapper.Widget rootWidget;
 		WidgetTreeCombo combo;
 		ToolItem comboItem;
-		Stetic.Wrapper.Widget selection;
-		Stetic.Wrapper.Container.ContainerChild packingSelection;
+		Wrapper.Widget selection;
+		Wrapper.Container.ContainerChild packingSelection;
 		Hashtable editors, wrappers;
 		Hashtable sensitives, invisibles;
 		ArrayList toggles;
@@ -23,7 +26,7 @@ namespace Stetic
 		bool allowBinding;
 		WidgetDesignerFrontend frontend;
 		
-		public WidgetActionBar (WidgetDesignerFrontend frontend, Stetic.Wrapper.Widget rootWidget)
+		public WidgetActionBar (WidgetDesignerFrontend frontend, Wrapper.Widget rootWidget)
 		{
 			this.frontend = frontend;
 			
@@ -63,7 +66,7 @@ namespace Stetic
 			set { allowBinding = value; }
 		}
 		
-		public Stetic.Wrapper.Widget RootWidget {
+		public Wrapper.Widget RootWidget {
 			get { return rootWidget; }
 			set {
 				if (project != null) {
@@ -126,7 +129,7 @@ namespace Stetic
 			// widget is a child of the root widget
 			
 			while (w != null && !w.IsTopLevel) {
-				w = Stetic.Wrapper.Container.LookupParent ((Gtk.Widget) w.Wrapped);
+				w = Wrapper.Container.LookupParent ((Gtk.Widget) w.Wrapped);
 			}
 			if (w == null || w != rootWidget)
 				return;
@@ -134,7 +137,7 @@ namespace Stetic
 			combo.SetSelection (selection);
 			
 			selection.Notify += Notified;
-			packingSelection = Stetic.Wrapper.Container.ChildWrapper (selection);
+			packingSelection = Wrapper.Container.ChildWrapper (selection);
 			if (packingSelection != null)
 				packingSelection.Notify += Notified;
 				
@@ -164,9 +167,9 @@ namespace Stetic
 				}
 			}
 			
-			Stetic.Wrapper.Widget widget = wrapper as Stetic.Wrapper.Widget;
+			Wrapper.Widget widget = wrapper as Wrapper.Widget;
 			if (widget != null) {
-				Stetic.Wrapper.Container.ContainerChild packingSelection = Stetic.Wrapper.Container.ChildWrapper (widget);
+				Wrapper.Container.ContainerChild packingSelection = Wrapper.Container.ChildWrapper (widget);
 				if (packingSelection != null)
 					AddCommands (packingSelection);
 			}

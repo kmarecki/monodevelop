@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public delegate void WidgetInfoEventHandler (object sender, WidgetInfoEventArgs args);
 	

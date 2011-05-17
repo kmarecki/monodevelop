@@ -1,7 +1,9 @@
 
 using System;
 
-namespace Stetic
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public class ActionComponent: Component
 	{

@@ -6,7 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Collections;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal static class CodeGenerator
 	{
@@ -120,7 +123,7 @@ namespace Stetic
 			return new CodeGenerationResult (units.ToArray (), (string[]) warningList.ToArray (typeof(string)));
 		}
 		
-		internal static void BindSignalHandlers (CodeExpression targetObjectVar, ObjectWrapper wrapper, Stetic.WidgetMap map, CodeStatementCollection statements, GenerationOptions options)
+		internal static void BindSignalHandlers (CodeExpression targetObjectVar, ObjectWrapper wrapper, WidgetMap map, CodeStatementCollection statements, GenerationOptions options)
 		{
 			foreach (Signal signal in wrapper.Signals) {
 				SignalDescriptor descriptor = signal.SignalDescriptor;
@@ -151,7 +154,7 @@ namespace Stetic
 			Gtk.Container cont = wrapper.Wrapped as Gtk.Container;
 			if (cont != null) {
 				foreach (Gtk.Widget child in cont.AllChildren) {
-					Stetic.Wrapper.Widget ww = Stetic.Wrapper.Widget.Lookup (child);
+					Wrapper.Widget ww = Wrapper.Widget.Lookup (child);
 					if (ww != null)
 						BindSignalHandlers (targetObjectVar, ww, map, statements, options);
 				}
@@ -318,7 +321,7 @@ namespace Stetic
 			Gtk.Container cont = wrapper.Wrapped as Gtk.Container;
 			if (cont != null) {
 				foreach (Gtk.Widget child in cont.AllChildren) {
-					Stetic.Wrapper.Widget ww = Stetic.Wrapper.Widget.Lookup (child);
+					Wrapper.Widget ww = Wrapper.Widget.Lookup (child);
 					if (ww != null)
 						GetFieldsToBind (tobind, ww);
 				}
@@ -329,7 +332,7 @@ namespace Stetic
 		{
 			statements.Add (new CodeCommentStatement ("Widget " + w.Name));
 			GeneratorContext ctx = new ProjectGeneratorContext (cns, type, statements, options);
-			Stetic.Wrapper.Widget ww = Stetic.Wrapper.Widget.Lookup (w);
+			Wrapper.Widget ww = Wrapper.Widget.Lookup (w);
 			ctx.GenerateCreationCode (ww, widgetVarExp);
 			ctx.EndGeneration ();
 			warnings.AddRange (ctx.Warnings);

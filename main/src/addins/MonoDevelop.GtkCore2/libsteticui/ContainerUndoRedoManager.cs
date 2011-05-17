@@ -3,7 +3,10 @@ using System;
 using System.Xml;
 using System.Collections;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	class ContainerUndoRedoManager: UndoRedoManager
 	{

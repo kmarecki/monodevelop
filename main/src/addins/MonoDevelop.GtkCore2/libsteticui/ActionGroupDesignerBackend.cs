@@ -1,7 +1,9 @@
 
 using System;
+using MonoDevelop.GtkCore2.Designer;
+using Editor = MonoDevelop.GtkCore2.Designer.Editor;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class ActionGroupDesignerBackend: Gtk.VBox
 	{

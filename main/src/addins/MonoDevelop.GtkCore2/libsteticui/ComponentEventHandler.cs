@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Stetic
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	public delegate void ComponentEventHandler (object sender, ComponentEventArgs args);
 	public delegate void ComponentNameEventHandler (object sender, ComponentNameEventArgs args);

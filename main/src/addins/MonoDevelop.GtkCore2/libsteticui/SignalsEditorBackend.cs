@@ -1,10 +1,13 @@
 using System;
 using System.Text;
 using System.Collections;
-using Stetic.Wrapper;
 using Mono.Unix;
 
-namespace Stetic
+using MonoDevelop.GtkCore2.Designer;
+using MonoDevelop.GtkCore2.Designer.Wrapper;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic
 {
 	internal class SignalsEditorBackend: Gtk.ScrolledWindow, IObjectViewer
 	{

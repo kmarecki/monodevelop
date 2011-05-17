@@ -34,7 +34,7 @@ using System.Xml.Serialization;
 using ENV = System.Environment;
 using Mono.Cecil;
 
-namespace Stetic {
+namespace MonoDevelop.GtkCore2.Stetic {
 
 	public class LibraryCache {
 

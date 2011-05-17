@@ -3,7 +3,10 @@ using System;
 using Mono.Unix;
 using System.Collections.Generic;
 
-namespace Stetic {
+using MonoDevelop.GtkCore2.Designer;
+using Wrapper = MonoDevelop.GtkCore2.Designer.Wrapper;
+
+namespace MonoDevelop.GtkCore2.Stetic {
 
 	internal class ProjectViewBackend : ScrolledWindow 
 	{
@@ -110,7 +113,7 @@ namespace Stetic {
 		
 		public void AddNode (TreeIter iter, Gtk.Widget widget)
 		{
-			Stetic.Wrapper.Widget wrapper = GetVisibleWrapper (widget);
+			Wrapper.Widget wrapper = GetVisibleWrapper (widget);
 			if (wrapper == null)
 				return;
 			
@@ -127,10 +130,10 @@ namespace Stetic {
 		
 		void FillChildren (TreeIter it, Wrapper.Widget wrapper)
 		{
-			Stetic.Wrapper.Container container = wrapper as Wrapper.Container;
+			Wrapper.Container container = wrapper as Wrapper.Container;
 			if (container != null) {
 				foreach (Gtk.Widget w in container.RealChildren) {
-					Stetic.Wrapper.Widget ww = GetVisibleWrapper (w);
+					Wrapper.Widget ww = GetVisibleWrapper (w);
 					if (ww != null) {
 						// Add a dummy node to allow lazy loading
 						store.SetValue (it, ColFilled, false);
@@ -144,7 +147,7 @@ namespace Stetic {
 		
 		Wrapper.Widget GetVisibleWrapper (Gtk.Widget w)
 		{
-			Stetic.Wrapper.Widget wrapper = Stetic.Wrapper.Widget.Lookup (w);
+			Wrapper.Widget wrapper = Wrapper.Widget.Lookup (w);
 			if (wrapper == null || wrapper.Unselectable)
 				return null;
 			else
@@ -163,7 +166,7 @@ namespace Stetic {
 			store.Remove (ref cit);
 			
 			// Add the real children
-			Stetic.Wrapper.Container container = store.GetValue (it, ColWrapper) as Wrapper.Container;
+			Wrapper.Container container = store.GetValue (it, ColWrapper) as Wrapper.Container;
 			if (container != null) {
 				foreach (Gtk.Widget w in container.RealChildren)
 					AddNode (it, w);
@@ -217,7 +220,7 @@ namespace Stetic {
 			LoadProject ();
 		}
 		
-		Stetic.Wrapper.Widget SelectedWrapper {
+		Wrapper.Widget SelectedWrapper {
 			get {
 				TreeIter iter;
 				if (!Selection.GetSelected (out iter))
@@ -233,7 +236,7 @@ namespace Stetic {
 		{
 			if (!syncing) {
 				syncing = true;
-				Stetic.Wrapper.Widget selection = SelectedWrapper;
+				Wrapper.Widget selection = SelectedWrapper;
 				if (selection != null)
 					selection.Select ();
 				syncing = false;
@@ -292,7 +295,7 @@ namespace Stetic {
 			return null;
 		}
 		
-		void NotifySelectionChanged (Stetic.Wrapper.Widget w)
+		void NotifySelectionChanged (Wrapper.Widget w)
 		{
 			if (frontend == null)
 				return;
@@ -311,7 +314,7 @@ namespace Stetic {
 
 		protected override bool OnPopupMenu ()
 		{
-			Stetic.Wrapper.Widget selection = SelectedWrapper;
+			Wrapper.Widget selection = SelectedWrapper;
 
 			if (selection != null) {
 				Menu m = new ContextMenu (selection);
@@ -333,7 +336,7 @@ namespace Stetic {
 		protected override void OnRowActivated (TreePath path, TreeViewColumn col)
 		{
 			base.OnRowActivated (path, col);
-			Stetic.Wrapper.Widget w = SelectedWrapper;
+			Wrapper.Widget w = SelectedWrapper;
 			if (w != null) {
 				if (frontend != null)
 					frontend.NotifyWidgetActivated (Component.GetSafeReference (w), w.Wrapped.Name, w.ClassDescriptor.Name);
